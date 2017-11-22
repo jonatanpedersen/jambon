@@ -4,7 +4,7 @@ import {all} from 'jambon-core';
 
 export function path (path, ...reducers) {
 	const keys = [];
-	const regexp = pathToRegexp(path, keys);
+	const regexp = pathToRegexp(path, keys, {end: false});
 
 	return async function (state) {
 		const {pathname} = url.parse(state.request.url);

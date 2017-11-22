@@ -26,7 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function path(path, ...reducers) {
 	const keys = [];
-	const regexp = (0, _pathToRegexp2.default)(path, keys);
+	const regexp = (0, _pathToRegexp2.default)(path, keys, { end: false });
 
 	return async function (state) {
 		const { pathname } = _url2.default.parse(state.request.url);
