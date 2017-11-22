@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _promise = require('babel-runtime/core-js/promise');
-
-var _promise2 = _interopRequireDefault(_promise);
-
 var _asyncGenerator2 = require('babel-runtime/helpers/asyncGenerator');
 
 var _asyncGenerator3 = _interopRequireDefault(_asyncGenerator2);
@@ -34,21 +30,11 @@ let iterableCursor = (() => {
 
 exports.main = main;
 
-var _express = require('express');
-
-var _express2 = _interopRequireDefault(_express);
-
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _util = require('util');
-
-var _util2 = _interopRequireDefault(_util);
-
 var _mongodb = require('mongodb');
 
 var _jambonCore = require('jambon-core');
+
+var _jambonRouter = require('jambon-router');
 
 var _http = require('http');
 
@@ -57,8 +43,6 @@ var _http2 = _interopRequireDefault(_http);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 async function main() {
-	const app = (0, _express2.default)();
-	app.use(_bodyParser2.default.json());
 	const db = await _mongodb.MongoClient.connect('mongodb://localhost/jambon');
 	const foos = db.collection('foos');
 	const bars = [{
@@ -66,19 +50,10 @@ async function main() {
 		title: 'Bar 1'
 	}];
 
-	const server = _http2.default.createServer((0, _jambonCore.jambon)((0, _jambonCore.compositeReducer)(getFoos, _jambonCore.jsonResponse)));
+	const requestListener = (0, _jambonCore.jambon)(_jambonCore.lowerCaseRequestHeaders, _jambonCore.parseRequestQuery, (0, _jambonRouter.post)(_jambonCore.parseRequestBody), (0, _jambonRouter.path)('/foos', (0, _jambonRouter.post)(createFoo), (0, _jambonRouter.get)(getFoos)), (0, _jambonRouter.path)('/foos/:id', (0, _jambonRouter.get)(findFoo)), (0, _jambonRouter.path)('/bars', (0, _jambonRouter.get)(getBars)), (0, _jambonRouter.path)('/bars/:id', (0, _jambonRouter.get)(findBar)), _jambonCore.jsonResponse);
 
+	const server = _http2.default.createServer(requestListener);
 	server.listen(8000);
-
-	app.post('/foos', (0, _jambonCore.bridge)((0, _jambonCore.compositeReducer)(createFoo, _jambonCore.jsonResponse)));
-
-	app.get('/foos', (0, _jambonCore.bridge)((0, _jambonCore.compositeReducer)(getFoos, _jambonCore.jsonResponse)));
-
-	app.get('/foos/:id', (0, _jambonCore.bridge)((0, _jambonCore.compositeReducer)(findFoo, _jambonCore.jsonResponse)));
-
-	app.get('/bars', (0, _jambonCore.bridge)((0, _jambonCore.compositeReducer)(getBars, _jambonCore.jsonResponse)));
-
-	app.get('/bars/:id', (0, _jambonCore.bridge)((0, _jambonCore.compositeReducer)(findBar, _jambonCore.jsonResponse)));
 
 	async function createFoo({ request, response }) {
 		const foo = request.body;
@@ -154,12 +129,4 @@ async function main() {
 			})
 		};
 	}
-
-	app.listen(1939);
-}
-
-async function sleep(timeout) {
-	return new _promise2.default(resolve => {
-		setTimeout(resolve, timeout);
-	});
 }

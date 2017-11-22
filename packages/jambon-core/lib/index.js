@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.iterableCursor = exports.json = undefined;
+exports.iterableCursor = exports.put = exports.post = exports.patch = exports.get = exports.del = exports.json = undefined;
 
 var _promise = require('babel-runtime/core-js/promise');
 
@@ -125,9 +125,15 @@ let iterableCursor = exports.iterableCursor = (() => {
 })();
 
 exports.jambon = jambon;
-exports.bridge = bridge;
+exports.setResponseContentTypeHeaderToApplicationJson = setResponseContentTypeHeaderToApplicationJson;
+exports.jsonStringifyResponseBody = jsonStringifyResponseBody;
 exports.jsonResponse = jsonResponse;
-exports.compositeReducer = compositeReducer;
+exports.lowerCaseRequestHeaders = lowerCaseRequestHeaders;
+exports.parseRequestBody = parseRequestBody;
+exports.parseRequestQuery = parseRequestQuery;
+exports.all = all;
+exports.path = path;
+exports.method = method;
 exports.isAsyncIterable = isAsyncIterable;
 exports.isIterable = isIterable;
 exports.isPromise = isPromise;
@@ -137,17 +143,34 @@ var _util = require('util');
 
 var _util2 = _interopRequireDefault(_util);
 
+var _url = require('url');
+
+var _url2 = _interopRequireDefault(_url);
+
+var _streamToString = require('stream-to-string');
+
+var _streamToString2 = _interopRequireDefault(_streamToString);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function jambon(reducer) {
-	async function handle(req, res) {
-		const { body, headers, params, query } = req;
-		const { request, response } = await reducer({
+function jambon(...reducers) {
+	function handler(req, res) {
+		handlerAsync(req, res).catch(err => {
+			console.error(err);
+			process.exit(1);
+		});
+	}
+
+	async function handlerAsync(req, res) {
+		const { headers, method, url } = req;
+		const body = await (0, _streamToString2.default)(req);
+
+		const { request, response } = await all(...reducers)({
 			request: {
+				method,
 				body,
 				headers,
-				params,
-				query
+				url
 			},
 			response: {}
 		});
@@ -173,65 +196,97 @@ function jambon(reducer) {
 		res.end();
 	}
 
-	return handle;
+	return handler;
 }
 
-function bridge(reducer) {
-	async function handle(req, res) {
-		const { body, headers, params, query } = req;
-		const { request, response } = await reducer({
-			request: {
-				body,
-				headers,
-				params,
-				query
-			},
-			response: {}
-		});
-
-		if (response.headers) {
-			for (let header in response.headers) {
-				res.setHeader(header, response.headers[header]);
-			}
-		}
-
-		if (response.statusMessage) {
-			res.statusMessage = response.statusMessage;
-		}
-
-		if (response.statusCode) {
-			res.status(response.statusCode);
-		}
-
-		await forEach(response.body, str => {
-			res.write(str);
-		});
-
-		res.end();
-	}
-
-	return _util2.default.callbackify(handle);
-}
-
-async function jsonResponse({ request, response }) {
+async function setResponseContentTypeHeaderToApplicationJson({ request, response }) {
 	return {
 		request,
 		response: (0, _extends3.default)({}, response, {
-			body: json(response.body),
 			headers: (0, _extends3.default)({}, response.headers, { 'Content-Type': 'application/json' })
 		})
 	};
 }
 
-function compositeReducer(...reducers) {
+async function jsonStringifyResponseBody({ request, response }) {
+	return {
+		request,
+		response: (0, _extends3.default)({}, response, {
+			body: json(response.body)
+		})
+	};
+}
+
+async function jsonResponse(state) {
+	return all(setResponseContentTypeHeaderToApplicationJson, jsonStringifyResponseBody)(state);
+}
+
+async function lowerCaseRequestHeaders(state) {
+	const headers = {};
+
+	for (const header in state.request.headers) {
+		const lowerCaseHeader = header.toLowerCase();
+		headers[lowerCaseHeader] = state.request.headers[header];
+	}
+
+	return (0, _extends3.default)({}, state, { request: (0, _extends3.default)({}, state.request, { headers }) });
+}
+
+async function parseRequestBody(state) {
+	const contentType = state.request.headers['content-type'];
+
+	if (contentType === 'application/json') {
+		const body = JSON.parse(state.request.body);
+
+		return (0, _extends3.default)({}, state, { request: (0, _extends3.default)({}, state.request, { body }) });
+	}
+
+	return state;
+}
+
+async function parseRequestQuery(state) {
+	const { query } = _url2.default.parse(state.request.url, true);
+
+	return (0, _extends3.default)({}, state, { request: (0, _extends3.default)({}, state.request, { query }) });
+}
+
+function all(...reducers) {
 	return async function (state) {
-		for (let reducer of reducers) {
+		for (const reducer of reducers) {
 			state = await reducer(state);
 		}
 
 		return state;
 	};
 }
+
+function path(path, ...reducers) {
+	return async function (state) {
+		const { pathname } = _url2.default.parse(state.request.url);
+
+		if (!path.test(pathname)) {
+			return state;
+		}
+
+		return all(...reducers)(state);
+	};
+}
+
+function method(method, ...reducers) {
+	return async function (state) {
+		if (state.request.method !== method) {
+			return state;
+		}
+
+		return all(...reducers)(state);
+	};
+}
+
+const del = exports.del = method.bind(null, 'DELETE');
+const get = exports.get = method.bind(null, 'GET');
+const patch = exports.patch = method.bind(null, 'PATCH');
+const post = exports.post = method.bind(null, 'POST');
+const put = exports.put = method.bind(null, 'PUT');
 
 function isAsyncIterable(obj) {
 	// checks for null and undefined

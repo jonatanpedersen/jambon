@@ -1,5 +1,5 @@
 {
-  "name": "jambon-core",
+  "name": "jambon-router",
   "version": "1.0.0",
   "description": "",
   "main": "lib",
@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "stream-to-string": "^1.1.0"
+    "babel-cli": "^6.26.0"
   },
   "dependencies": {
+    "jambon-core": "^1.0.0",
     "path-to-regexp": "^2.1.0"
   }
 }

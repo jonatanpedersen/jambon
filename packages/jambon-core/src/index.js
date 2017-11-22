@@ -1,14 +1,25 @@
 import util from 'util';
+import url2 from 'url';
+import streamToString from 'stream-to-string';
 
-export function jambon (reducer) {
-	async function handle (req, res) {
-		const {body, headers, params, query} = req;
-		const {request, response} = await reducer({
+export function jambon (...reducers) {
+	function handler (req, res) {
+		handlerAsync(req, res).catch(err => {
+			console.error(err);
+			process.exit(1);
+		});
+	}
+
+	async function handlerAsync (req, res) {
+		const {headers, method, url} = req;
+		const body = await streamToString(req);
+
+		const {request, response} = await all(...reducers)({
 			request: {
+				method,
 				body,
 				headers,
-				params,
-				query
+				url
 			},
 			response: {}
 		});
@@ -34,55 +45,34 @@ export function jambon (reducer) {
 		res.end();
 	}
 
-	return handle;
+	return handler;
 }
 
-export function bridge (reducer) {
-	async function handle (req, res) {
-		const {body, headers, params, query} = req;
-		const {request, response} = await reducer({
-			request: {
-				body,
-				headers,
-				params,
-				query
-			},
-			response: {}
-		});
-
-		if (response.headers) {
-			for (let header in response.headers) {
-				res.setHeader(header, response.headers[header]);
-			}
-		}
-
-		if (response.statusMessage) {
-			res.statusMessage = response.statusMessage;
-		}
-
-		if (response.statusCode) {
-			res.status(response.statusCode);
-		}
-
-		await forEach(response.body, str => {
-			res.write(str);
-		});
-
-		res.end();
-	}
-
-	return util.callbackify(handle);
-}
-
-export async function jsonResponse ({request, response}) {
+export async function setResponseContentTypeHeaderToApplicationJson ({request, response}) {
 	return {
 		request,
 		response: {
 			...response,
-			body: json(response.body),
 			headers: {...response.headers, 'Content-Type': 'application/json'}
 		}
 	};
+}
+
+export async function jsonStringifyResponseBody ({request, response}) {
+	return {
+		request,
+		response: {
+			...response,
+			body: json(response.body)
+		}
+	};
+}
+
+export async function jsonResponse (state) {
+	return all(
+		setResponseContentTypeHeaderToApplicationJson,
+		jsonStringifyResponseBody
+	)(state);
 }
 
 export async function* json (obj) {
@@ -131,15 +121,72 @@ export async function* json (obj) {
 	}
 }
 
-export function compositeReducer (...reducers) {
+export async function lowerCaseRequestHeaders (state) {
+	const headers = {};
+
+	for (const header in state.request.headers) {
+		const lowerCaseHeader = header.toLowerCase();
+		headers[lowerCaseHeader] = state.request.headers[header];
+	}
+
+	return {...state, request: {...state.request, headers}};
+}
+
+export async function parseRequestBody (state) {
+	const contentType = state.request.headers['content-type'];
+
+	if (contentType === 'application/json') {
+		const body = JSON.parse(state.request.body);
+
+		return {...state, request: {...state.request, body}};
+	}
+
+	return state;
+}
+
+export async function parseRequestQuery (state) {
+	const {query} = url2.parse(state.request.url, true);
+
+	return {...state, request: {...state.request, query}};
+}
+
+export function all (...reducers) {
 	return async function (state) {
-		for (let reducer of reducers) {
+		for (const reducer of reducers) {
 			state = await reducer(state);
 		}
 
 		return state;
 	}
 }
+
+export function path (path, ...reducers) {
+	return async function (state) {
+		const {pathname} = url2.parse(state.request.url);
+
+		if(!path.test(pathname)) {
+			return state;
+		}
+
+		return all(...reducers)(state);
+	}
+}
+
+export function method (method, ...reducers) {
+	return async function (state) {
+		if (state.request.method !== method) {
+			return state;
+		}
+
+		return all(...reducers)(state);
+	}
+}
+
+export const del = method.bind(null, 'DELETE');
+export const get = method.bind(null, 'GET');
+export const patch = method.bind(null, 'PATCH');
+export const post = method.bind(null, 'POST');
+export const put = method.bind(null, 'PUT');
 
 export function isAsyncIterable(obj) {
 	// checks for null and undefined

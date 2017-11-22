@@ -1,13 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import util from 'util';
 import {MongoClient, Cursor} from 'mongodb';
-import {jambon, bridge, compositeReducer, jsonResponse} from 'jambon-core';
+import {jambon, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse} from 'jambon-core';
+import {path, get, post} from 'jambon-router';
 import http from 'http';
 
 export async function main () {
-	const app = express();
-	app.use(bodyParser.json());
 	const db = await MongoClient.connect('mongodb://localhost/jambon');
 	const foos = db.collection('foos');
 	const bars = [{
@@ -15,37 +11,28 @@ export async function main () {
 		title: 'Bar 1'
 	}];
 
-	const server = http.createServer(jambon(compositeReducer(
-		getFoos,
+	const requestListener = jambon(
+		lowerCaseRequestHeaders,
+		parseRequestQuery,
+		post(parseRequestBody),
+		path('/foos',
+			post(createFoo),
+			get(getFoos)
+		),
+		path('/foos/:id',
+			get(findFoo)
+		),
+		path('/bars',
+			get(getBars)
+		),
+		path('/bars/:id',
+			get(findBar)
+		),
 		jsonResponse
-	)));
+	);
 
+	const server = http.createServer(requestListener);
 	server.listen(8000);
-
-	app.post('/foos', bridge(compositeReducer(
-		createFoo,
-		jsonResponse
-	)));
-
-	app.get('/foos', bridge(compositeReducer(
-		getFoos,
-		jsonResponse
-	)));
-
-	app.get('/foos/:id', bridge(compositeReducer(
-		findFoo,
-		jsonResponse
-	)));
-
-	app.get('/bars', bridge(compositeReducer(
-		getBars,
-		jsonResponse
-	)));
-
-	app.get('/bars/:id', bridge(compositeReducer(
-		findBar,
-		jsonResponse
-	)));
 
 	async function createFoo ({request, response}) {
 		const foo = request.body;
@@ -126,8 +113,6 @@ export async function main () {
 			}
 		};
 	}
-
-	app.listen(1939);
 }
 
 async function* iterableCursor(cursor) {
@@ -138,10 +123,4 @@ async function* iterableCursor(cursor) {
 	} finally {
 		await cursor.close();
 	}
-}
-
-async function sleep (timeout) {
-	return new Promise (resolve => {
-		setTimeout(resolve, timeout);
-	});
 }
