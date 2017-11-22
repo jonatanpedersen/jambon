@@ -8,7 +8,7 @@
     "build-watch": "npm run build -- --watch",
     "start": "node .",
     "start-watch": "nodemon",
-    "test": "loadtest -c 10 --rps 100 http://localhost:8000/foos"
+    "test": "loadtest -c 32 --rps 384 http://localhost:8000/api/bars"
   },
   "dependencies": {
     "ajv": "^5.4.0",
