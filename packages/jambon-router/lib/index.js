@@ -31,7 +31,7 @@ function path(path, ...reducers) {
 	return async function (state) {
 		const { pathname } = _url2.default.parse(state.request.url);
 		const match = regexp.exec(pathname);
-
+		console.log(pathname, path, !!match);
 		if (match) {
 			match.shift();
 

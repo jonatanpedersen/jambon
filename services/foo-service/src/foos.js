@@ -10,7 +10,7 @@ export default function (db) {
 		),
 		path('/api/foos/:id',
 			get(findFoo)
-		),
+		)
 	];
 
 	async function createFoo ({request, response}) {

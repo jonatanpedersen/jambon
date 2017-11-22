@@ -189,9 +189,11 @@ function jambon(...reducers) {
 			res.statusCode = response.statusCode;
 		}
 
-		await forEach(response.body, str => {
-			res.write(str);
-		});
+		if (response.body) {
+			await forEach(response.body, str => {
+				res.write(str);
+			});
+		}
 
 		res.end();
 	}
