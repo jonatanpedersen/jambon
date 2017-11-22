@@ -217,18 +217,6 @@ export function isPromise(obj) {
 	return Promise.resolve(obj) == obj;
 }
 
-export async function* iterableCursor(cursor) {
-	try {
-		cursor[Symbol.asyncIterator] = () => {};
-
-		while (await cursor.hasNext()) {
-			yield await cursor.next();
-		}
-	} finally {
-		await cursor.close();
-	}
-}
-
 export async function forEach(ai, fn) {
 	return ai.next().then(r => {
 		if (!r.done) {
