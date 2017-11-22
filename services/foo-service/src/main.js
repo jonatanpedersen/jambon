@@ -1,4 +1,4 @@
-import {MongoClient, Cursor} from 'mongodb';
+import {MongoClient} from 'mongodb';
 import {jambon, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse} from 'jambon-core';
 import {path, get, post} from 'jambon-router';
 import http from 'http';
@@ -19,6 +19,7 @@ export async function main () {
 		)
 	);
 
+	const port = process.env.PORT || 8000;
 	const server = http.createServer(requestListener);
-	server.listen(8000);
+	server.listen(port);
 }
