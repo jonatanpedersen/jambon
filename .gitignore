@@ -1,2 +1,4 @@
 node_modules
 *.log
+packages/*/lib
+services/*/lib
