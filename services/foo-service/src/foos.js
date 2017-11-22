@@ -1,4 +1,5 @@
 import {path, get, post} from 'jambon-router';
+import iterableCursor from './iterableCursor';
 
 export default function (db) {
 	const foos = db.collection('foos');
@@ -17,31 +18,24 @@ export default function (db) {
 		const foo = request.body;
 		await foos.insertOne(foo);
 
-		const body = foo;
-		const statusCode = 201;
-		const statusMessage = 'Created Foo';
-
 		return {
 			request,
 			response: {
 				...response,
-				body,
-				statusCode,
-				statusMessage
+				body: foo,
+				statusCode: 201,
+				statusMessage: 'Created Foo'
 			}
 		};
 	}
 
 	async function getFoos ({request, response}) {
-		const body = iterableCursor(foos.find());
-		const statusCode = 200;
-
 		return {
 			request,
 			response: {
 				...response,
-				body,
-				statusCode
+				body: iterableCursor(foos.find()),
+				statusCode: 200
 			}
 		};
 	}
@@ -50,26 +44,13 @@ export default function (db) {
 		const {id} = request.params;
 		const foo = await foos.findOne({id});
 
-		const body = foo;
-		const statusCode = foo ? 200 : 404;
-
 		return {
 			request,
 			response: {
 				...response,
-				body,
-				statusCode
+				body: foo,
+				statusCode: foo ? 200 : 404
 			}
 		};
-	}
-}
-
-async function* iterableCursor(cursor) {
-	try {
-		while (await cursor.hasNext()) {
-			yield await cursor.next();
-		}
-	} finally {
-		await cursor.close();
 	}
 }
