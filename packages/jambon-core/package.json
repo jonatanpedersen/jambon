@@ -1,0 +1,15 @@
+{
+  "name": "jambon-core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "build-watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0"
+  }
+}

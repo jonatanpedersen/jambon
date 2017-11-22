@@ -1,0 +1,62 @@
+0 silly input [ 'start' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   parallel: true,
+1 silly flags   script: 'start',
+1 silly flags   args: [] }
+2 verbose rootPath /Users/jonatanpedersen/jonatanpedersen/jambon
+3 info version 2.5.1
+4 silly existsSync /Users/jonatanpedersen/jonatanpedersen/jambon/VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 info run in 1 package(s): npm run start
+9 silly runScriptInPackageStreaming [ 'start', [], 'foo-service' ]
+10 silly getExecOpts { cwd: '/Users/jonatanpedersen/jonatanpedersen/jambon/services/foo-service' }
+11 error execute callback with error
+12 error Error: Command failed: npm run start
+12 error /Users/jonatanpedersen/jonatanpedersen/jambon/services/foo-service/lib/main.js:57
+12 error async function main() {
+12 error       ^^^^^^^^
+12 error SyntaxError: Unexpected token function
+12 error     at Object.exports.runInThisContext (vm.js:76:16)
+12 error     at Module._compile (module.js:528:28)
+12 error     at Object.Module._extensions..js (module.js:565:10)
+12 error     at Module.load (module.js:473:32)
+12 error     at tryModuleLoad (module.js:432:12)
+12 error     at Function.Module._load (module.js:424:3)
+12 error     at Module.require (module.js:483:17)
+12 error     at require (internal/module.js:20:19)
+12 error     at Object.<anonymous> (/Users/jonatanpedersen/jonatanpedersen/jambon/services/foo-service/lib/index.js:3:13)
+12 error     at Module._compile (module.js:556:32)
+12 error
+12 error npm ERR! Darwin 16.6.0
+12 error npm ERR! argv "/Users/jonatanpedersen/.nvm/versions/node/v6.6.0/bin/node" "/Users/jonatanpedersen/.nvm/versions/node/v6.6.0/bin/npm" "run" "start"
+12 error npm ERR! node v6.6.0
+12 error npm ERR! npm  v3.8.5
+12 error npm ERR! code ELIFECYCLE
+12 error npm ERR! foo-service@1.0.0 start: `node .`
+12 error npm ERR! Exit status 1
+12 error npm ERR!
+12 error npm ERR! Failed at the foo-service@1.0.0 start script 'node .'.
+12 error npm ERR! Make sure you have the latest version of node.js and npm installed.
+12 error npm ERR! If you do, this is most likely a problem with the foo-service package,
+12 error npm ERR! not with npm itself.
+12 error npm ERR! Tell the author that this fails on your system:
+12 error npm ERR!     node .
+12 error npm ERR! You can get information on how to open an issue for this project with:
+12 error npm ERR!     npm bugs foo-service
+12 error npm ERR! Or if that isn't available, you can get their info via:
+12 error npm ERR!     npm owner ls foo-service
+12 error npm ERR! There is likely additional logging output above.
+12 error
+12 error npm ERR! Please include the following file with any support request:
+12 error npm ERR!     /Users/jonatanpedersen/jonatanpedersen/jambon/services/foo-service/npm-debug.log
+12 error
+12 error
+12 error > foo-service@1.0.0 start /Users/jonatanpedersen/jonatanpedersen/jambon/services/foo-service
+12 error > node .
+12 error
+12 error
+12 error     at Promise.all.then.arr (/Users/jonatanpedersen/jonatanpedersen/jambon/node_modules/lerna/node_modules/execa/index.js:236:11)

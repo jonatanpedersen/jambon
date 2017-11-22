@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon"
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build --parallel",
+    "build-watch": "lerna run build-watch --parallel",
+    "start": "lerna run start --parallel",
+    "start-watch": "lerna run start-watch --parallel",
+    "clean ": "lerna clean",
+    "dev": "concurrently \"npm run build-watch\" \"npm run start-watch\""
   },
   "repository": {
     "type": "git",
@@ -19,11 +25,17 @@
   "dependencies": {
     "ajv": "^5.4.0",
     "babel-core": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-async-generator-functions": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "lerna": "^2.5.1",
     "mongodb": "^2.2.33",
     "nodemon": "^1.12.1"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
   }
 }

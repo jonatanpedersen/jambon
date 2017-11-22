@@ -1,11 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const util = require('util');
-const {MongoClient, Cursor} = require('mongodb');
+import express from 'express';
+import bodyParser from 'body-parser';
+import util from 'util';
+import {MongoClient, Cursor} from 'mongodb';
 
-module.exports = {main};
-
-async function main () {
+export async function main () {
 	const app = express();
 	app.use(bodyParser.json());
 	const db = await MongoClient.connect('mongodb://localhost/jambon');
@@ -57,7 +55,7 @@ function bridge (reducer) {
 		const {request, response} = await reducer({body, headers, params, query}, {});
 
 		if (response.headers) {
-			for (header in response.headers) {
+			for (let header in response.headers) {
 				res.setHeader(header, response.headers[header]);
 			}
 		}
@@ -67,20 +65,12 @@ function bridge (reducer) {
 		}
 
 		if (true || isAsyncIterable(response.body)) {
-			let first = true;
-			res.write('[');
+			const jsonBody = json(response.body);
 
-			await forEach(response.body, item => {
-				if (first) {
-					first = false;
-				} else {
-					res.write(',');
-				}
-
-				res.write(JSON.stringify(item));
+			await forEach(jsonBody, str => {
+				res.write(str);
 			});
 
-			res.write(']');
 			res.end();
 		} else {
 			res.json(response.body);
@@ -88,6 +78,23 @@ function bridge (reducer) {
 	}
 
 	return util.callbackify(handle);
+}
+
+async function* json (asyncIterator) {
+	let first = true;
+	yield '[';
+
+	for await (const item of asyncIterator) {
+		if (first) {
+			first = false;
+		} else {
+			yield ',';
+		}
+
+		yield JSON.stringify(item);
+	}
+
+	yield ']';
 }
 
 async function setResponseContentTypeHeader (request, response) {
@@ -102,7 +109,7 @@ function compositeReducer (reducers) {
 	return async function (request, response) {
 		let memo = {request, response};
 
-		for (reducer of reducers) {
+		for (let reducer of reducers) {
 			memo = await reducer(memo.request, memo.response);
 		}
 
@@ -122,7 +129,6 @@ function isAsyncIterable(obj) {
 async function* iterableCursor(cursor) {
 	try {
 		while (await cursor.hasNext()) {
-			await sleep(200);
 			yield await cursor.next();
 		}
 	} finally {
@@ -131,9 +137,9 @@ async function* iterableCursor(cursor) {
 }
 
 async function forEach(ai, fn) {
-	return ai.next().then(({value, done}) => {
-		if (!done) {
-			fn(value);
+	return ai.next().then(r => {
+		if (!r.done) {
+			fn(r.value);
 
 			return forEach(ai, fn);
 		}
