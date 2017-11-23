@@ -2,18 +2,20 @@
   "name": "jambon-core",
   "version": "1.0.0",
   "description": "",
-  "main": "lib",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "build-watch": "npm run build -- --watch"
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "stream-to-string": "^1.1.0"
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.1"
   },
   "dependencies": {
-    "path-to-regexp": "^2.1.0"
+    "stream-to-string": "^1.1.0"
   }
 }

@@ -2,10 +2,10 @@
   "name": "foo-service",
   "version": "1.0.0",
   "description": "",
-  "main": "lib",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "build-watch": "npm run build -- --watch",
+    "build": "tsc",
+    "build-watch": "tsc --watch",
     "start": "node .",
     "start-watch": "nodemon",
     "test": "loadtest -c 32 --rps 384 http://localhost:8000/api/bars"
@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "loadtest": "^2.3.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.12.1",
+    "typescript": "^2.6.1"
   }
 }

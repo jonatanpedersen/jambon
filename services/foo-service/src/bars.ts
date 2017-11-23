@@ -1,5 +1,15 @@
 import {path, get} from 'jambon-router';
-import bars from '../data/bars.json';
+
+const bars = [
+	{
+		"id": "1",
+		"title": "Bar 1"
+	},
+	{
+		"id": "2",
+		"title": "Bar 2"
+	}
+];
 
 export default function () {
 	return [

@@ -1,7 +1,7 @@
 import {MongoClient} from 'mongodb';
-import {jambon, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse} from 'jambon-core';
+import {jambon, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse, notFound} from 'jambon-core';
 import {path, get, post} from 'jambon-router';
-import http from 'http';
+import {createServer} from 'http';
 import foos from './foos';
 import bars from './bars';
 
@@ -16,10 +16,11 @@ export async function main () {
 			...foos(db),
 			...bars(),
 			jsonResponse
-		)
+		),
+		notFound
 	);
 
 	const port = process.env.PORT || 8000;
-	const server = http.createServer(requestListener);
+	const server = createServer(requestListener);
 	server.listen(port);
 }
