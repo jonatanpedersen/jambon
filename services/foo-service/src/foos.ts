@@ -1,11 +1,12 @@
 import {path, get, post} from 'jambon-router';
+import {State} from 'jambon-core';
 import iterableCursor from './iterableCursor';
 
-export default function (db) {
+export default function ({db}) {
 	const foos = db.collection('foos');
 
 	return [
-		path('/api/foos',
+		path('/api/foos$',
 			post(createFoo),
 			get(getFoos)
 		),
@@ -14,14 +15,14 @@ export default function (db) {
 		)
 	];
 
-	async function createFoo ({request, response}) {
-		const foo = request.body;
+	async function createFoo (state : State) : Promise<State> {
+		const foo = state.request.body;
 		await foos.insertOne(foo);
 
 		return {
-			request,
+			...state,
 			response: {
-				...response,
+				...state.response,
 				body: foo,
 				statusCode: 201,
 				statusMessage: 'Created Foo'
@@ -29,25 +30,25 @@ export default function (db) {
 		};
 	}
 
-	async function getFoos ({request, response}) {
+	async function getFoos (state : State) : Promise<State> {
 		return {
-			request,
+			...state,
 			response: {
-				...response,
+				...state.response,
 				body: iterableCursor(foos.find()),
 				statusCode: 200
 			}
 		};
 	}
 
-	async function findFoo ({request, response}) {
-		const {id} = request.params;
+	async function findFoo (state : State) : Promise<State> {
+		const {id} = state.request.params;
 		const foo = await foos.findOne({id});
 
 		return {
-			request,
+			...state,
 			response: {
-				...response,
+				...state.response,
 				body: foo,
 				statusCode: foo ? 200 : 404
 			}

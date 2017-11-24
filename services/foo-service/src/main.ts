@@ -2,8 +2,7 @@ import {MongoClient} from 'mongodb';
 import {createRequestListener, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse, notFound, HttpMethods} from 'jambon-core';
 import {path, get, post} from 'jambon-router';
 import {createServer} from 'http';
-import foos from './foos';
-import bars from './bars';
+import api from './api';
 
 export async function main () {
 	const db = await MongoClient.connect('mongodb://localhost/jambon');
@@ -11,13 +10,7 @@ export async function main () {
 	const reducers = [
 		lowerCaseRequestHeaders,
 		parseRequestQuery,
-		path('/api',
-			parseRequestBody,
-			post(parseRequestBody),
-			...foos(db),
-			...bars(),
-			jsonResponse
-		),
+		api({db}),
 		notFound
 	];
 

@@ -4,7 +4,13 @@ import {all, AsyncReducerFunction, State, HttpMethods} from 'jambon-core';
 
 export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	const keys = [];
-	const regexp = pathToRegexp(path, keys, {end: false});
+	const end = path.endsWith('$');
+
+	if (end) {
+		path = path.slice(0, -1);
+	}
+
+	const regexp = pathToRegexp(path, keys, {end});
 
 	return async function requestUrlPath (state : State) : Promise<State> {
 		const {pathname} = url.parse(state.request.url);
