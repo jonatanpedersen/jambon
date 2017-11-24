@@ -3,8 +3,6 @@ import * as url from 'url';
 import * as streamTostring from 'stream-to-string';
 import {IncomingMessage, ServerResponse} from 'http';
 
-(<any>Symbol).asyncIterator = Symbol.asyncIterator || Symbol.for("Symbol.asyncIterator");
-
 export type AsyncReducerFunction = (state : State) => Promise<State>;
 export type ReducerFunction = (state : State) => State;
 export type RequestListenerFunction = (req: IncomingMessage, res: ServerResponse) => void;
@@ -23,7 +21,7 @@ export interface Request {
 }
 
 export interface Response {
-	body?: string | object,
+	body?: any,
 	headers?: HttpHeaders,
 	statusCode?: HttpStatusCode | number,
 	statusMessage?: string,
@@ -56,8 +54,10 @@ export enum HttpStatusCode {
 	INTERNAL_SERVER_ERROR = 500
 }
 
-export function jambon (...reducers: AsyncReducerFunction[]) : RequestListenerFunction {
-	function handler (req: IncomingMessage, res: ServerResponse) {
+export function createRequestListener (...reducers: AsyncReducerFunction[]) : RequestListenerFunction {
+	return requestListener;
+
+	function requestListener (req: IncomingMessage, res: ServerResponse) {
 		handlerAsync(req, res).catch(err => {
 			console.error(err);
 			process.exit(1);
@@ -103,8 +103,6 @@ export function jambon (...reducers: AsyncReducerFunction[]) : RequestListenerFu
 
 		res.end();
 	}
-
-	return handler;
 }
 
 export async function setResponseContentTypeHeaderToApplicationJson (state : State) : Promise<State> {
@@ -150,7 +148,7 @@ export async function jsonResponse (state : State) : Promise<State> {
 	)(state);
 }
 
-export async function* json (obj) {
+export async function* json (obj: any) {
 	if (isAsyncIterable(obj)) {
 		let first = true;
 		yield '[';
@@ -207,26 +205,38 @@ export async function lowerCaseRequestHeaders (state : State) : Promise<State> {
 	return {...state, request: {...state.request, headers}};
 }
 
-export async function parseRequestBody (state) {
+export async function parseRequestBody (state : State) : Promise<State> {
 	const contentType = state.request.headers['content-type'];
 
 	if (contentType === 'application/json') {
 		const body = JSON.parse(state.request.body);
 
-		return {...state, request: {...state.request, body}};
+		return {
+			...state,
+			request: {
+				...state.request,
+				body
+			}
+		};
 	}
 
 	return state;
 }
 
-export async function parseRequestQuery (state) {
+export async function parseRequestQuery (state : State) : Promise<State> {
 	const {query} = url.parse(state.request.url, true);
 
-	return {...state, request: {...state.request, query}};
+	return {
+		...state,
+		request: {
+			...state.request,
+			query
+		}
+	};
 }
 
 export function all (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
-	return async function allReducer (state) {
+	return async function all (state : State) : Promise<State> {
 		for (const reducer of reducers) {
 			state = await reducer(state);
 		}
@@ -235,8 +245,7 @@ export function all (...reducers : AsyncReducerFunction[]) : AsyncReducerFunctio
 	}
 }
 
-export function isAsyncIterable(obj) {
-	// checks for null and undefined
+export function isAsyncIterable(obj) : boolean {
 	if (obj == null) {
 		return false;
 	}
@@ -244,8 +253,7 @@ export function isAsyncIterable(obj) {
 	return typeof obj[Symbol.asyncIterator] === 'function';
 }
 
-export function isIterable(obj) {
-	// checks for null and undefined
+export function isIterable(obj) : boolean {
 	if (obj == null) {
 		return false;
 	}
@@ -253,8 +261,7 @@ export function isIterable(obj) {
 	return typeof obj[Symbol.iterator] === 'function';
 }
 
-export function isPromise(obj) {
-	// checks for null and undefined
+export function isPromise(obj) : boolean {
 	if (obj == null) {
 		return false;
 	}
@@ -262,12 +269,14 @@ export function isPromise(obj) {
 	return Promise.resolve(obj) == obj;
 }
 
-export async function forEach(ai, fn) {
-	return ai.next().then(r => {
-		if (!r.done) {
-			fn(r.value);
+export async function forEach(asyncIterator, fn) : Promise<void> {
+	const {value, done} = await asyncIterator.next();
 
-			return forEach(ai, fn);
-		}
-	});
+	if (done === true) {
+		return;
+	}
+
+	fn(value);
+
+	await forEach(asyncIterator, fn);
 }

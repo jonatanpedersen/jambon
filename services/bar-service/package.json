@@ -1,0 +1,18 @@
+{
+  "name": "bar-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "test": "loadtest -t 30 -c 32 --rps 512 http://localhost:9000/foos"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "loadtest": "^2.3.0"
+  }
+}

@@ -45,10 +45,22 @@ export function method (method: HttpMethods | string, ...reducers : AsyncReducer
 	}
 }
 
-export const del : AsyncReducerFunction = method.bind(null, HttpMethods.DELETE);
-export const get : AsyncReducerFunction = method.bind(null, HttpMethods.GET);
-export const patch : AsyncReducerFunction = method.bind(null, HttpMethods.PATCH);
-export const post : AsyncReducerFunction = method.bind(null, HttpMethods.POST);
-export const put : AsyncReducerFunction = method.bind(null, HttpMethods.PUT);
+export function del (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return method(HttpMethods.DELETE, ...reducers);
+}
 
+export function get (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return method(HttpMethods.GET, ...reducers);
+}
 
+export function post (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return method(HttpMethods.POST, ...reducers);
+}
+
+export function patch (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return method(HttpMethods.PATCH, ...reducers);
+}
+
+export function put (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return method(HttpMethods.PUT, ...reducers);
+}

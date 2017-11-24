@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
-    "start": "node .",
-    "start-watch": "nodemon",
+    "start": "node --harmony_async_iteration .",
+    "start-watch": "nodemon --harmony_async_iteration",
     "test": "loadtest -c 32 --rps 384 http://localhost:8000/api/bars"
   },
   "dependencies": {
