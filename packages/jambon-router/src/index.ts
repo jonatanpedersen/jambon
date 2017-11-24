@@ -6,7 +6,7 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	const keys = [];
 	const regexp = pathToRegexp(path, keys, {end: false});
 
-	return async function (state : State) : Promise<State> {
+	return async function requestUrlPathReducer (state : State) : Promise<State> {
 		const {pathname} = url.parse(state.request.url);
 		const match = regexp.exec(pathname);
 
@@ -45,10 +45,10 @@ export function method (method: HttpMethods | string, ...reducers : AsyncReducer
 	}
 }
 
-export const del = method.bind(null, HttpMethods.DELETE);
-export const get = method.bind(null, HttpMethods.GET);
-export const patch = method.bind(null, HttpMethods.PATCH);
-export const post = method.bind(null, HttpMethods.POST);
-export const put = method.bind(null, HttpMethods.PUT);
+export const del : AsyncReducerFunction = method.bind(null, HttpMethods.DELETE);
+export const get : AsyncReducerFunction = method.bind(null, HttpMethods.GET);
+export const patch : AsyncReducerFunction = method.bind(null, HttpMethods.PATCH);
+export const post : AsyncReducerFunction = method.bind(null, HttpMethods.POST);
+export const put : AsyncReducerFunction = method.bind(null, HttpMethods.PUT);
 
 
