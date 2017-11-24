@@ -7,13 +7,15 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
-    "test": "mocha"
+    "test": "mocha --harmony_async_iteration"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "deep-diff": "^0.3.8",
     "mocha": "^4.0.1",
-    "typescript": "^2.6.1"
+    "typescript": "^2.6.1",
+    "jambon-test-helpers": "^1.0.0"
   },
   "dependencies": {
     "jambon-core": "^1.0.0",

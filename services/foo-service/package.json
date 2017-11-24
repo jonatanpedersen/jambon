@@ -8,7 +8,7 @@
     "build-watch": "tsc --watch",
     "start": "node --harmony_async_iteration .",
     "start-watch": "nodemon --harmony_async_iteration",
-    "test": "loadtest -c 32 --rps 384 http://localhost:8000/api/bars"
+    "test": "mocha --harmony_async_iteration"
   },
   "dependencies": {
     "ajv": "^5.4.0",
@@ -19,7 +19,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jambon-test-helpers": "^1.0.0",
     "loadtest": "^2.3.0",
+    "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "typescript": "^2.6.1"
   }

@@ -13,7 +13,7 @@ export interface State {
 }
 
 export interface Request {
-	body: any,
+	body?: any,
 	headers: HttpHeaders,
 	method: HttpMethods | string,
 	url: string,

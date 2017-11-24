@@ -1,5 +1,5 @@
 import {MongoClient} from 'mongodb';
-import {createRequestListener, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse, notFound} from 'jambon-core';
+import {createRequestListener, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse, notFound, HttpMethods} from 'jambon-core';
 import {path, get, post} from 'jambon-router';
 import {createServer} from 'http';
 import foos from './foos';
