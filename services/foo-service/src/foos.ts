@@ -6,13 +6,8 @@ export default function ({db}) {
 	const foos = db.collection('foos');
 
 	return [
-		path('/api/foos$',
-			post(createFoo),
-			get(getFoos)
-		),
-		path('/api/foos/:id',
-			get(findFoo)
-		)
+		path('/api/foos$', post(createFoo), get(getFoos)),
+		path('/api/foos/:fooId$', get(findFoo))
 	];
 
 	async function createFoo (state : State) : Promise<State> {
@@ -42,8 +37,8 @@ export default function ({db}) {
 	}
 
 	async function findFoo (state : State) : Promise<State> {
-		const {id} = state.request.params;
-		const foo = await foos.findOne({id});
+		const {fooId} = state.request.params;
+		const foo = await foos.findOne({fooId});
 
 		return {
 			...state,

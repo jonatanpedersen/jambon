@@ -1,7 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
 import {State, AsyncReducerFunction} from 'jambon-core';
-import {diff} from 'deep-diff';
 
 export interface AsyncReducerTest {
 	only? : boolean

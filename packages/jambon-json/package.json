@@ -1,0 +1,22 @@
+{
+  "name": "jambon-json",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "test": "mocha --harmony_async_iteration"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.1",
+    "jambon-test-helpers": "^1.0.0"
+  },
+  "dependencies": {
+    "jambon-core": "^1.0.0"
+  }
+}
