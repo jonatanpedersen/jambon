@@ -26,38 +26,3 @@ describeAsyncReducer({
 		}
 	}
 });
-
-
-describeAsyncReducer({
-	description: 'jsonStringifyResponseBody should stringify object response body',
-	asyncReducer: jsonStringifyResponseBody,
-	initialState: {
-		request: {
-			method: 'GET',
-			headers: {},
-			url: '/'
-		},
-		response: {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: {
-				foo: 1,
-				bar: 2
-			}
-		}
-	},
-	expectedFinalState: {
-		request: {
-			method: 'GET',
-			headers: {},
-			url: '/'
-		},
-		response: {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: '{"foo": 1, "bar": 2}'
-		}
-	}
-});
