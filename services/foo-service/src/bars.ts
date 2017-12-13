@@ -23,7 +23,6 @@ export default function () {
 	];
 
 	async function getBars (state : HttpState) : Promise<HttpState> {
-		console.log(1);
 		return {
 			...state,
 			response: {
@@ -35,7 +34,6 @@ export default function () {
 	}
 
 	async function findBar (state : HttpState) : Promise<HttpState> {
-		console.log(2);
 		const {id} = state.request.params;
 		const bar = bars.find(bar => bar.id === id);
 

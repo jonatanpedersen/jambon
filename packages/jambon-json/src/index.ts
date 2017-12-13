@@ -39,7 +39,6 @@ export async function jsonStringifyResponseBody (state : HttpState) : Promise<Ht
 
 async function* json (obj: any) {
 	if (isAsyncIterable(obj)) {
-		console.log(123);
 		let first = true;
 		yield '[';
 
@@ -55,7 +54,6 @@ async function* json (obj: any) {
 
 		yield ']';
 	} else if (isIterable(obj)) {
-		console.log(23434);
 		let first = true;
 		yield '[';
 
@@ -71,14 +69,12 @@ async function* json (obj: any) {
 
 		yield ']';
 	} else if (isPromise(obj)) {
-		console.log(444123);
 		const item = await obj;
 
 		if (item) {
 			yield JSON.stringify(item);
 		}
 	} else {
-		console.log(55553);
 		const item = obj;
 
 		if (item) {
