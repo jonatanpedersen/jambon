@@ -8,8 +8,8 @@
 		"build": "tsc",
 		"build-watch": "tsc --watch"
 	},
-	"author": "",
-	"license": "ISC",
+	"author": "Jonatan Pedersen",
+	"license": "MIT",
 	"devDependencies": {
 		"mocha": "^4.0.1",
 		"chai": "^4.1.2",

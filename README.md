@@ -7,24 +7,24 @@ Minimalistic functional http server
 ## Hello World
 
 ``` javascript
-import {jambon} from 'jambon-core';
+import { createRequestListener } from 'jambon-core';
 import http from 'http';
 
 const server = http.createServer(
-	jambon(helloWorld)
+	createRequestListener(helloWorld)
 );
 
 const port = process.env.PORT || 8000;
 
 server.listen(port);
 
-function helloWorld ({request, response}) {
+function helloWorld (state) {
 	return {
-		...request,
+		...state,
 		response: {
-			...response,
+			...state.response,
 			headers: {
-				...response.headers,
+				...state.response.headers,
 				'Content-Type': 'text/html'
 			}
 			body: 'Hello World',
@@ -34,98 +34,25 @@ function helloWorld ({request, response}) {
 }
 ```
 
-## Routing
+## Licence
+The MIT License (MIT)
 
-``` javascript
-import {jambon} from 'jambon-core';
-import {path, get} from 'jambon-router';
-import http from 'http';
+Copyright (c) 2017 [Jonatan Pedersen](https://www.jonatanpedersen.com/)
 
-const server = http.createServer(
-	jambon(
-		path('/hello/:subject',
-			get(
-				helloSubject
-			)
-		)
-	)
-);
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-const port = process.env.PORT || 8000;
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-server.listen(port);
-
-function helloSubject ({request, response}) {
-	return {
-		...request,
-		response: {
-			...response,
-			headers: {
-				...response.headers,
-				'Content-Type': 'text/html'
-			}
-			body: `Hello ${request.params.subject}`,
-			statusCode: 200
-		}
-	};
-}
-```
-
-## JSON API example
-``` javascript
-import {jambon, lowerCaseRequestHeaders, parseRequestBody, parseRequestQuery, jsonResponse} from 'jambon-core';
-import {path, get, post} from 'jambon-router';
-import http from 'http';
-
-const bars = [{
-	id: '1',
-	title: 'Bar 1'
-}, {
-	id: '2',
-	title: 'Bar 2'
-}];
-
-const requestListener = jambon(
-	lowerCaseRequestHeaders,
-	parseRequestQuery,
-	path('/api',
-		post(parseRequestBody),
-		path('/api/bars',
-			get(getBars)
-		),
-		path('/api/bars/:id',
-			get(findBar)
-		),
-		jsonResponse
-	)
-);
-
-const port = process.env.PORT || 8000;
-const server = http.createServer(requestListener);
-server.listen(port);
-
-async function getBars ({request, response}) {
-	return {
-		request,
-		response: {
-			...response,
-			body: bars,
-			statusCode: 200
-		}
-	};
-}
-
-async function findBar ({request, response}) {
-	const {id} = request.params;
-	const bar = bars.find(bar => bar.id === id);
-
-	return {
-		request,
-		response: {
-			...response,
-			body: bar,
-			statusCode: bar ? 200 : 404
-		}
-	};
-}
-```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

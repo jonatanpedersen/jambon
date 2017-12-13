@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
@@ -17,7 +18,7 @@
     "jambon-json": "^1.0.0",
     "mongodb": "^2.2.33"
   },
-  "author": "",
+  "author": "Jonatan Pedersen",
   "license": "ISC",
   "devDependencies": {
     "jambon-test-helpers": "^1.0.0",

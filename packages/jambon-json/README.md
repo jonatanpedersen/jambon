@@ -4,67 +4,26 @@
 $ npm install jambon-router
 ```
 
-## API
-### path
 
-``` javascript
-function path(path: string, ...reducers: (async state => state)[]) : async state => state
-```
+## Licence
+The MIT License (MIT)
 
-Import `path` function:
-``` javascript
-import {path} from 'jambon-router'
-```
+Copyright (c) 2017 [Jonatan Pedersen](https://www.jonatanpedersen.com/)
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-Match requests where path starts with `/api`:
-``` javascript
-const reducer = path('/api', ...reducers});
-```
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-Match requests where path is exactly `/api/foos`:
-
-``` javascript
-const reducer = path('/api/foos$', async (state) => {
-	const foos = await getFoos();
-
-	return {
-		...state,
-		response: {
-			...state.response,
-			body: foos,
-			statusCode: 200
-		}
-	};
-});
-```
-
-Using params:
-
-``` javascript
-const reducer = path('/api/foos/:fooId$',  async (state) => {
-	const {fooId} = state.request.params;
-	const foo = await findFoo(fooId);
-
-	return {
-		...state,
-		response: {
-			...state.response,
-			body: foo,
-			statusCode: foo ? 200 : 404
-		}
-	};
-});
-```
-
-
-## method(method: string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction
-
-``` javascript
-import {method} from 'jambon-router';
-
-const methodReducer = method('POST', );
-
-
-
-```
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

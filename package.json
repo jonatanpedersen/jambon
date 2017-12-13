@@ -18,8 +18,8 @@
     "type": "git",
     "url": "git+https://github.com/jonatanpedersen/jambon.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jonatanpedersen/jambon/issues"
   },

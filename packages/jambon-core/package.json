@@ -9,8 +9,8 @@
     "build-watch": "tsc --watch",
     "test": "mocha --harmony_async_iteration"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
   "devDependencies": {
     "mocha": "^4.0.1",
     "typescript": "^2.6.1"
