@@ -1,8 +1,8 @@
-import {AsyncReducerFunction, State} from 'jambon-core';
+import {AsyncReducerFunction, HttpState} from 'jambon-core';
 
 export const JSON_MIME_TYPE = 'application/json';
 
-export async function jsonParseRequestBody (state : State) : Promise<State> {
+export async function jsonParseRequestBody (state : HttpState) : Promise<HttpState> {
 	const body = JSON.parse(state.request.body);
 
 	return {
@@ -14,7 +14,7 @@ export async function jsonParseRequestBody (state : State) : Promise<State> {
 	};
 }
 
-export async function setResponseContentTypeHeaderToApplicationJson (state : State) : Promise<State> {
+export async function setResponseContentTypeHeaderToApplicationJson (state : HttpState) : Promise<HttpState> {
 	return {
 		...state,
 		response: {
@@ -27,7 +27,7 @@ export async function setResponseContentTypeHeaderToApplicationJson (state : Sta
 	};
 }
 
-export async function jsonStringifyResponseBody (state : State) : Promise<State> {
+export async function jsonStringifyResponseBody (state : HttpState) : Promise<HttpState> {
 	return {
 		...state,
 		response: {
@@ -38,7 +38,6 @@ export async function jsonStringifyResponseBody (state : State) : Promise<State>
 }
 
 async function* json (obj: any) {
-	throw new Error();
 	if (isAsyncIterable(obj)) {
 		console.log(123);
 		let first = true;

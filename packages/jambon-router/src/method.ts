@@ -1,9 +1,9 @@
 import * as url from 'url';
 import * as pathToRegexp from 'path-to-regexp';
-import {all, AsyncReducerFunction, State, HttpMethods} from 'jambon-core';
+import {all, AsyncReducerFunction, HttpState, HttpMethods} from 'jambon-core';
 
 export function method (method: HttpMethods | string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
-	return async function requestMethod (state : State) : Promise<State> {
+	return async function requestMethod (state : HttpState) : Promise<HttpState> {
 		const requestMethod = state.request.method;
 
 		if (requestMethod !== method) {

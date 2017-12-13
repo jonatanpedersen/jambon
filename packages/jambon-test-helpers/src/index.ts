@@ -1,18 +1,18 @@
 import {expect} from 'chai';
 import 'mocha';
-import {State, AsyncReducerFunction} from 'jambon-core';
+import {HttpState, AsyncReducerFunction} from 'jambon-core';
 
 export interface AsyncReducerTest {
 	only? : boolean
 	skip? : boolean
 	description : string
 	asyncReducer : AsyncReducerFunction
-	initialState : State
-	expectedFinalState : State
+	initialState : HttpState
+	expectedFinalState : HttpState
 }
 
 export function noop () {
-	return async function noop (state : State) : Promise<State> {
+	return async function noop (state : HttpState) : Promise<HttpState> {
 		return {
 			...state,
 			response: {

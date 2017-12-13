@@ -1,6 +1,6 @@
 import * as url from 'url';
 import * as pathToRegexp from 'path-to-regexp';
-import {all, AsyncReducerFunction, State} from 'jambon-core';
+import {all, AsyncReducerFunction, HttpState} from 'jambon-core';
 
 export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	const keys = [];
@@ -12,7 +12,7 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 
 	const regexp = pathToRegexp(path, keys, {end});
 
-	return async function requestUrlPath (state : State) : Promise<State> {
+	return async function requestUrlPath (state : HttpState) : Promise<HttpState> {
 		const {pathname} = url.parse(state.request.url);
 		const match = regexp.exec(pathname);
 

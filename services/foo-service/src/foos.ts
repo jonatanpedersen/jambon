@@ -1,5 +1,5 @@
 import {path, get, post} from 'jambon-router';
-import {State} from 'jambon-core';
+import {HttpState} from 'jambon-core';
 import iterableCursor from './iterableCursor';
 
 export default function ({db}) {
@@ -10,7 +10,7 @@ export default function ({db}) {
 		path('/api/foos/:fooId$', get(findFoo))
 	];
 
-	async function createFoo (state : State) : Promise<State> {
+	async function createFoo (state : HttpState) : Promise<HttpState> {
 		const foo = state.request.body;
 		await foos.insertOne(foo);
 
@@ -25,7 +25,7 @@ export default function ({db}) {
 		};
 	}
 
-	async function getFoos (state : State) : Promise<State> {
+	async function getFoos (state : HttpState) : Promise<HttpState> {
 		return {
 			...state,
 			response: {
@@ -36,7 +36,7 @@ export default function ({db}) {
 		};
 	}
 
-	async function findFoo (state : State) : Promise<State> {
+	async function findFoo (state : HttpState) : Promise<HttpState> {
 		const {fooId} = state.request.params;
 		const foo = await foos.findOne({fooId});
 

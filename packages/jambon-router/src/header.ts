@@ -1,7 +1,7 @@
-import {all, AsyncReducerFunction, State} from 'jambon-core';
+import {all, AsyncReducerFunction, HttpState} from 'jambon-core';
 
 export function header (name : string, value : string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
-	return async function header (state : State) : Promise<State> {
+	return async function header (state : HttpState) : Promise<HttpState> {
 		const requestHeader = state.request.headers[name];
 
 		if (requestHeader !== value) {
