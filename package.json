@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --parallel",
-    "build-watch": "lerna run build-watch --parallel",
+    "build": "lerna run build",
+    "build-watch": "lerna run build-watch",
     "start": "lerna run start --parallel",
     "start-watch": "lerna run start-watch --parallel",
-    "test": "lerna run test --parallel",
-    "test-watch": "lerna run test-watch --parallel",
+    "test": "lerna run test",
+    "test-watch": "lerna run test-watch",
     "clean": "lerna clean",
     "dev": "concurrently \"npm run build-watch\" \"npm run start-watch\""
   },
