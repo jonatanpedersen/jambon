@@ -9,4 +9,4 @@ export { HttpState } from './HttpState';
 export { HttpStatusCodes } from './HttpStatusCodes';
 export { ReducerFunction } from './ReducerFunction';
 export { RequestListenerFunction } from './RequestListenerFunction';
-export * from './reducers';
+export * from './reducers/index';
