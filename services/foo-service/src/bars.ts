@@ -1,5 +1,5 @@
 import {path, get} from 'jambon-router';
-import {HttpState} from 'jambon-core';
+import {HttpState} from 'jambon';
 
 const bars = [
 	{

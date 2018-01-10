@@ -1,6 +1,6 @@
 import * as url from 'url';
 import * as pathToRegexp from 'path-to-regexp';
-import {all, AsyncReducerFunction, HttpState} from 'jambon-core';
+import {all, AsyncReducerFunction, HttpState} from 'jambon';
 
 export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	const keys = [];

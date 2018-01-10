@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "ajv": "^5.4.0",
-    "jambon-core": "^1.0.0",
+    "jambon": "^1.0.0",
     "jambon-router": "^1.0.0",
     "jambon-json": "^1.0.0",
     "mongodb": "^2.2.33"

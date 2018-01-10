@@ -7,7 +7,7 @@ Minimalistic functional http server
 ## Hello World
 
 ``` javascript
-import { createRequestListener } from 'jambon-core';
+import { createRequestListener } from 'jambon';
 import http from 'http';
 
 const server = http.createServer(

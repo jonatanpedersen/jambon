@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import 'mocha';
-import {HttpState, AsyncReducerFunction} from 'jambon-core';
+import {HttpState, AsyncReducerFunction} from 'jambon';
 
 export interface AsyncReducerTest {
 	only? : boolean

@@ -1,4 +1,4 @@
-import {all, AsyncReducerFunction, HttpState} from 'jambon-core';
+import {all, AsyncReducerFunction, HttpState} from 'jambon';
 
 export function header (name : string, value : string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
 	return async function header (state : HttpState) : Promise<HttpState> {

@@ -1,4 +1,4 @@
-import {AsyncReducerFunction, HttpState} from 'jambon-core';
+import {AsyncReducerFunction, HttpState} from 'jambon';
 
 export const JSON_MIME_TYPE = 'application/json';
 

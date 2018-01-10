@@ -17,6 +17,6 @@
     "jambon-test-helpers": "^1.0.0"
   },
   "dependencies": {
-    "jambon-core": "^1.0.0"
+    "jambon": "^1.0.0"
   }
 }

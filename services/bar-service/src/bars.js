@@ -1,5 +1,5 @@
 const { path, get } = require('jambon-router');
-const { HttpState } = require('jambon-core');
+const { HttpState } = require('jambon');
 
 module.exports = { bars };
 
