@@ -1,5 +1,5 @@
 import {MongoClient} from 'mongodb';
-import {all, createRequestListener, lazy, lowerCaseRequestHeaders, parseRequestQuery, HttpMethods} from 'jambon-core';
+import {all, createRequestListener, lazy, parseRequestQuery, HttpMethods} from 'jambon-core';
 import {path, get, post} from 'jambon-router';
 import {createServer} from 'http';
 import api from './api';
@@ -10,7 +10,6 @@ export async function main () {
 	const reducer = lazy(() =>
 		katch(
 			all(
-				lowerCaseRequestHeaders,
 				parseRequestQuery,
 				api({db})
 			)
