@@ -6,7 +6,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "lerna run build",
-    "build-watch": "lerna run build-watch",
+    "build-watch": "lerna run build-watch --parallel",
     "start": "lerna run start --parallel",
     "start-watch": "lerna run start-watch --parallel",
     "test": "lerna run test",

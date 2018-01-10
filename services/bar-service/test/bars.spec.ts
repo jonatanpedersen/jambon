@@ -2,7 +2,7 @@ import 'mocha';
 import {all} from 'jambon-core';
 import {describeAsyncReducer, noop} from 'jambon-test-helpers';
 import {expect} from 'chai';
-import bars from '../src/bars';
+import {bars} from '../src/bars';
 
 describeAsyncReducer({
 	description: 'GET /api/foos',
