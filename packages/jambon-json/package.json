@@ -1,5 +1,5 @@
 {
-  "name": "jambon-core",
+  "name": "jambon-json",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
@@ -13,9 +13,10 @@
   "license": "MIT",
   "devDependencies": {
     "mocha": "^4.0.1",
-    "typescript": "^2.6.1"
+    "typescript": "^2.6.1",
+    "jambon-test-helpers": "^1.0.0"
   },
   "dependencies": {
-    "stream-to-string": "^1.1.0"
+    "jambon-core": "^1.0.0"
   }
 }

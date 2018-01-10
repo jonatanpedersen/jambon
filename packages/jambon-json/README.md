@@ -1,38 +1,9 @@
-# jambon
-Minimalistic functional http server
+# jambon-router
 
-[![Build Status](https://travis-ci.org/jonatanpedersen/jambon.svg?branch=master)](https://travis-ci.org/jonatanpedersen/jambon)
-[![NSP Status](https://nodesecurity.io/orgs/jonatanpedersen/projects/66fa69df-c041-499b-9867-5dec8475fc8d/badge)](https://nodesecurity.io/orgs/jonatanpedersen/projects/66fa69df-c041-499b-9867-5dec8475fc8d)
-
-## Hello World
-
-``` javascript
-import { createRequestListener } from 'jambon-core';
-import http from 'http';
-
-const server = http.createServer(
-	createRequestListener(helloWorld)
-);
-
-const port = process.env.PORT || 8000;
-
-server.listen(port);
-
-function helloWorld (state) {
-	return {
-		...state,
-		response: {
-			...state.response,
-			headers: {
-				...state.response.headers,
-				'Content-Type': 'text/html'
-			}
-			body: 'Hello World',
-			statusCode: 200
-		}
-	};
-}
 ```
+$ npm install jambon-router
+```
+
 
 ## Licence
 The MIT License (MIT)

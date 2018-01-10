@@ -2,15 +2,20 @@
   "name": "jambon-router",
   "version": "1.0.0",
   "description": "",
-  "main": "lib",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
-    "build": "babel src --out-dir lib",
-    "build-watch": "npm run build -- --watch"
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "test": "mocha --harmony_async_iteration"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "deep-diff": "^0.3.8",
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.1",
+    "jambon-test-helpers": "^1.0.0"
   },
   "dependencies": {
     "jambon-core": "^1.0.0",

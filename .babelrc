@@ -1,8 +1,0 @@
-{
-	"plugins": [
-		"transform-runtime",
-		"transform-object-rest-spread",
-		"transform-async-generator-functions",
-		"transform-es2015-modules-commonjs"
-	]
-}

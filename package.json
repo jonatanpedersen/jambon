@@ -5,37 +5,36 @@
   "main": "index.js",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --parallel",
+    "build": "lerna run build",
     "build-watch": "lerna run build-watch --parallel",
     "start": "lerna run start --parallel",
     "start-watch": "lerna run start-watch --parallel",
-    "clean ": "lerna clean",
+    "test": "lerna run test",
+    "test-watch": "lerna run test-watch",
+    "clean": "lerna clean",
     "dev": "concurrently \"npm run build-watch\" \"npm run start-watch\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jonatanpedersen/jambon.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jonatanpedersen/jambon/issues"
   },
   "homepage": "https://github.com/jonatanpedersen/jambon#readme",
   "dependencies": {
-    "ajv": "^5.4.0",
-    "babel-core": "^6.26.0",
-    "babel-plugin-transform-async-generator-functions": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "lerna": "^2.5.1",
-    "mongodb": "^2.2.33",
-    "nodemon": "^1.12.1"
+    "lerna": "^2.5.1"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "@types/chai": "^4.0.5",
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.53",
+    "chai": "^4.1.2",
+    "concurrently": "^3.5.1",
+    "mocha": "^4.0.1",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.1"
   }
 }
