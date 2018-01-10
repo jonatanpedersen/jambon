@@ -1,31 +1,27 @@
-# jambon-json
+# jambon
 
 ``` javascript
 import { createRequestListener } from 'jambon';
-import { jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson } from 'jambon-json';
 import http from 'http';
 
 const server = http.createServer(
-	createRequestListener(
-		helloWorld,
-		setResponseContentTypeHeaderToApplicationJson,
-		jsonStringifyResponseBody
-	)
+	createRequestListener(helloWorld)
 );
 
 const port = process.env.PORT || 8000;
 
 server.listen(port);
 
-async function helloWorld (state) {
+function helloWorld (state) {
 	return {
 		...state,
 		response: {
 			...state.response,
-			body: {
-				id: 1,
-				title: 'hello world'
-			},
+			headers: {
+				...state.response.headers,
+				'Content-Type': 'text/html'
+			}
+			body: 'Hello World',
 			statusCode: 200
 		}
 	};
