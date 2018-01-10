@@ -1,6 +1,6 @@
 {
 	"name": "jambon-test-helpers",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "",
 	"main": "./lib/index.js",
 	"types": "./lib/index.d.ts",
@@ -20,7 +20,7 @@
 		"mocha": "^4.0.1"
 	},
 	"dependencies": {
-		"jambon": "^1.0.0"
+		"jambon": "^1.0.1"
 	},
 	"private": true
 }
