@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "jambon": "^1.0.0",
-    "jambon-router": "^1.0.0",
-    "jambon-json": "^1.0.0"
+    "jambon-json": "^1.0.0",
+    "jambon-router": "^1.0.0"
   },
   "author": "Jonatan Pedersen",
   "license": "ISC",

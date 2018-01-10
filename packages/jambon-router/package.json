@@ -13,9 +13,9 @@
   "license": "MIT",
   "devDependencies": {
     "deep-diff": "^0.3.8",
+    "jambon-test-helpers": "^1.0.0",
     "mocha": "^4.0.1",
-    "typescript": "^2.6.1",
-    "jambon-test-helpers": "^1.0.0"
+    "typescript": "^2.6.1"
   },
   "dependencies": {
     "jambon": "^1.0.0",

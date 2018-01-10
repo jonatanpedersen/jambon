@@ -4,5 +4,12 @@
     "packages/*",
     "services/*"
   ],
-  "version": "0.0.0"
+  "commands": {
+    "publish": {
+      "ignore": [
+        "services/*"
+      ]
+    }
+  },
+  "version": "1.0.0"
 }
