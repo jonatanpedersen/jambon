@@ -26,17 +26,17 @@
   },
   "homepage": "https://github.com/jonatanpedersen/jambon#readme",
   "dependencies": {
-    "lerna": "^2.5.1"
+    "lerna": "2.9.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.0.5",
-    "@types/mocha": "^2.2.44",
-    "@types/node": "^8.0.53",
-    "chai": "^4.1.2",
-    "concurrently": "^3.5.1",
-    "mocha": "^4.0.1",
-    "ts-node": "^3.3.0",
-    "typescript": "^2.6.1"
+    "@types/chai": "4.1.2",
+    "@types/mocha": "2.2.48",
+    "@types/node": "8.0.53",
+    "chai": "4.1.2",
+    "concurrently": "3.5.1",
+    "mocha": "5.0.4",
+    "ts-node": "5.0.1",
+    "typescript": "2.7.2"
   },
   "private": true
 }
