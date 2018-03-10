@@ -1,5 +1,5 @@
-const { all, createRequestListener, lazy, parseRequestQuery } = require('jambon');
-const { path, get, post } = require('jambon-router');
+const { all, createRequestListener, lazy, parseRequestQuery } = require('@jambon/core');
+const { path, get, post } = require('@jambon/router');
 const { createServer } = require('http');
 const { api } = require('./api');
 

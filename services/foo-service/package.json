@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "ajv": "^5.4.0",
-    "jambon": "^1.0.1",
-    "jambon-json": "^1.0.1",
-    "jambon-router": "^1.0.1",
+    "@jambon/core": "^1.0.1",
+    "@jambon/json": "^1.0.1",
+    "@jambon/router": "^1.0.1",
     "mongodb": "^2.2.33"
   },
   "author": "Jonatan Pedersen",
   "license": "ISC",
   "devDependencies": {
-    "jambon-test-helpers": "^1.0.1",
+    "@jambon/test-helpers": "^1.0.1",
     "loadtest": "^2.3.0",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",

@@ -1,6 +1,6 @@
 import 'mocha';
-import {all} from 'jambon';
-import {describeAsyncReducer, noop} from 'jambon-test-helpers';
+import {all} from '@jambon/core';
+import {describeAsyncReducer, noop} from '@jambon/test-helpers';
 import {expect} from 'chai';
 import {bars} from '../src/bars';
 

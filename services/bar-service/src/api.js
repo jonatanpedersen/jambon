@@ -1,6 +1,6 @@
 const { bars } = require('./bars');
-const { path } = require( 'jambon-router');
-const { jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson } = require( 'jambon-json');
+const { path } = require( '@jambon/router');
+const { jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson } = require('@jambon/json');
 
 module.exports = { api };
 

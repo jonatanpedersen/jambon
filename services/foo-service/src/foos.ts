@@ -1,5 +1,5 @@
-import {path, get, post} from 'jambon-router';
-import {HttpState} from 'jambon';
+import {path, get, post} from '@jambon/router';
+import {HttpState} from '@jambon/core';
 import iterableCursor from './iterableCursor';
 
 export default function ({db}) {

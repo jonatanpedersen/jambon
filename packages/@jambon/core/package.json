@@ -1,0 +1,21 @@
+{
+  "name": "@jambon/core",
+  "version": "1.0.1",
+  "description": "",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "test": "mocha --harmony_async_iteration"
+  },
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "stream-to-string": "^1.1.0"
+  }
+}

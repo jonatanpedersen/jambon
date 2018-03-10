@@ -1,6 +1,6 @@
 import {MongoClient} from 'mongodb';
-import {all, createRequestListener, lazy, parseRequestQuery, HttpMethods} from 'jambon';
-import {path, get, post} from 'jambon-router';
+import {all, createRequestListener, lazy, parseRequestQuery, HttpMethods} from '@jambon/core';
+import {path, get, post} from '@jambon/router';
 import {createServer} from 'http';
 import api from './api';
 

@@ -37,5 +37,6 @@
     "mocha": "^4.0.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.6.1"
-  }
+  },
+  "private": true
 }
