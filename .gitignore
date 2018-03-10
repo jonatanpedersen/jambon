@@ -1,5 +1,5 @@
 node_modules
 *.log
-packages/*/lib
+packages/@jambon/*/lib
 services/*/lib
 package-lock.json
