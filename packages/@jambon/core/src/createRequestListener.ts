@@ -27,7 +27,8 @@ export function createRequestListener (...reducers: AsyncReducerFunction[]) : Re
 				body,
 				headers,
 				url
-			}
+			},
+			context: {}
 		};
 
 		const finalState : HttpState = await all(...reducers)(initialState);

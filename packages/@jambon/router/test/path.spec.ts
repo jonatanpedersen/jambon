@@ -11,6 +11,8 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/foos'
+		},
+		context: {
 		}
 	},
 	expectedFinalState: {
@@ -22,6 +24,8 @@ describeAsyncReducer({
 		},
 		response: {
 			statusCode: 200
+		},
+		context: {
 		}
 	}
 });
@@ -34,6 +38,8 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/bars'
+		},
+		context: {
 		}
 	},
 	expectedFinalState: {
@@ -41,6 +47,8 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/bars'
+		},
+		context: {
 		}
 	}
 });
@@ -53,6 +61,8 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/foos/1'
+		},
+		context: {
 		}
 	},
 	expectedFinalState: {
@@ -66,6 +76,8 @@ describeAsyncReducer({
 		},
 		response: {
 			statusCode: 200
+		},
+		context: {
 		}
 	}
 });
@@ -78,6 +90,8 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/bars'
+		},
+		context: {
 		}
 	},
 	expectedFinalState: {
@@ -85,6 +99,166 @@ describeAsyncReducer({
 			method: 'GET',
 			headers: {},
 			url: '/bars'
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'matching absolute path',
+	asyncReducer: path('/foos', noop()),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/foos'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			params: {},
+			headers: {},
+			url: '/foos'
+		},
+		response: {
+			statusCode: 200
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'non matching absolute path',
+	asyncReducer: path('/foos', noop()),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/bars'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/bars'
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'matching relative path',
+	asyncReducer: path('foos', noop()),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/foos'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			params: {},
+			headers: {},
+			url: '/foos'
+		},
+		response: {
+			statusCode: 200
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'matching absolute path and matching relative path',
+	asyncReducer: path('/foos', path('bars', noop())),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/foos/bars'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			params: {},
+			headers: {},
+			url: '/foos/bars'
+		},
+		response: {
+			statusCode: 200
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'matching relative path and matching relative path',
+	asyncReducer: path('foos', path('bars', noop())),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/foos/bars'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			params: {},
+			headers: {},
+			url: '/foos/bars'
+		},
+		response: {
+			statusCode: 200
+		},
+		context: {
+		}
+	}
+});
+
+describeAsyncReducer({
+	description: 'matching absolute path and matching absolute path',
+	asyncReducer: path('/foos', path('/foos/bars', noop())),
+	initialState: {
+		request: {
+			method: 'GET',
+			headers: {},
+			url: '/foos/bars'
+		},
+		context: {
+		}
+	},
+	expectedFinalState: {
+		request: {
+			method: 'GET',
+			params: {},
+			headers: {},
+			url: '/foos/bars'
+		},
+		response: {
+			statusCode: 200
+		},
+		context: {
 		}
 	}
 });

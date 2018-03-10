@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import {method, get, put, post, patch, del} from '../';
 
 describeAsyncReducer({
-	description: 'matching path without params',
+	description: 'matching method',
 	asyncReducer: method('POST', noop()),
 	initialState: {
 		request: {
@@ -26,7 +26,7 @@ describeAsyncReducer({
 });
 
 describeAsyncReducer({
-	description: 'matching path without params',
+	description: 'non matching method',
 	asyncReducer: method('POST', noop()),
 	initialState: {
 		request: {
