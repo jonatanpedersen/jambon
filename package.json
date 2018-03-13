@@ -1,7 +1,7 @@
 {
   "name": "jambon",
   "version": "1.0.0",
-  "description": "",
+  "description": "Http listener composed with higher order functions returning immutable request/response context reducers",
   "main": "index.js",
   "scripts": {
     "bootstrap": "lerna bootstrap",

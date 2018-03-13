@@ -1,5 +1,5 @@
 # jambon
-Minimalistic functional http server
+Http listener composed with higher order functions returning immutable request/response context reducers.
 
 [![Build Status](https://travis-ci.org/jonatanpedersen/jambon.svg?branch=master)](https://travis-ci.org/jonatanpedersen/jambon)
 [![NSP Status](https://nodesecurity.io/orgs/jonatanpedersen/projects/66fa69df-c041-499b-9867-5dec8475fc8d/badge)](https://nodesecurity.io/orgs/jonatanpedersen/projects/66fa69df-c041-499b-9867-5dec8475fc8d)
