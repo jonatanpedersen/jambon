@@ -1,9 +1,14 @@
 import * as url from 'url';
 import * as pathToRegexp from 'path-to-regexp';
-import { all, AsyncReducerFunction, HttpState } from '@jambon/core';
+import { all, AsyncReducerFunction, HttpContext } from '@jambon/core';
 import { createDebug } from './debug';
 
 const debug = createDebug('jambon:path');
+
+const EMPTY_STRING = '';
+const INITIAL_SLASH = /^\//;
+const DOLLAR_SIGN = '$';
+const SLASH = '/';
 
 export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	const keys = [];
@@ -16,15 +21,15 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 
 	const regexp = pathToRegexp(path, keys, {end});
 
-	return async function requestUrlPath (state : HttpState) : Promise<HttpState> {
-		const { request, response, context } = state;
+	return async function requestUrlPath (context : HttpContext) : Promise<HttpContext> {
+		const { request, response, router } = context;
 
 		let pathname;
 
 		if (absolute) {
 			pathname = url.parse(request.url).pathname;
 		} else {
-			pathname = (context.relativePath || url.parse(request.url).pathname).replace(INITIAL_SLASH, EMPTY_STRING);
+			pathname = (router && router.relativePath || url.parse(request.url).pathname).replace(INITIAL_SLASH, EMPTY_STRING);
 		}
 
 		const match = regexp.exec(pathname);
@@ -37,10 +42,10 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 				return params;
 			}, {});
 
-			state = {
-				...state,
-				request: {
-					...state.request,
+			context = {
+				...context,
+				router: {
+					...context.router,
 					params
 				}
 			};
@@ -48,30 +53,25 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 			const relativePath = pathname.replace(regexp, EMPTY_STRING);
 
 			if (relativePath !== EMPTY_STRING) {
-				state = {
-					...state,
-					context: {
-						...state.context,
+				context = {
+					...context,
+					router: {
+						...context.router,
 						relativePath
 					}
 				};
 			} else {
-				const newContext = {...state.context};
-				delete newContext.relativePath;
-				state = {
-					...state,
-					context: newContext
+				const newRouter = {...context.router};
+				delete newRouter.relativePath;
+				context = {
+					...context,
+					router: newRouter
 				};
 			}
 
-			state = await all(...reducers)(state);
+			context = await all(...reducers)(context);
 		}
 
-		return state;
+		return context;
 	}
 }
-
-const EMPTY_STRING = '';
-const INITIAL_SLASH = /^\//;
-const DOLLAR_SIGN = '$';
-const SLASH = '/';

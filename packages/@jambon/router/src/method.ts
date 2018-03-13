@@ -1,16 +1,16 @@
 import * as url from 'url';
 import * as pathToRegexp from 'path-to-regexp';
-import {all, AsyncReducerFunction, HttpState, HttpMethods} from '@jambon/core';
+import {all, AsyncReducerFunction, HttpContext, HttpMethods} from '@jambon/core';
 
 export function method (method: HttpMethods | string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
-	return async function requestMethod (state : HttpState) : Promise<HttpState> {
-		const requestMethod = state.request.method;
+	return async function requestMethod (context : HttpContext) : Promise<HttpContext> {
+		const requestMethod = context.request.method;
 
 		if (requestMethod !== method) {
-			return state;
+			return context;
 		}
 
-		return all(...reducers)(state);
+		return all(...reducers)(context);
 	}
 }
 

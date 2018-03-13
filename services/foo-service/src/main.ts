@@ -24,14 +24,14 @@ export async function main () {
 }
 
 function katch (reducer) {
-	return async function katch (state) {
+	return async function katch (context) {
 		try {
-			return await reducer(state);
+			return await reducer(context);
 		} catch (err) {
 			return {
-				...state,
+				...context,
 				response: {
-					...state.response,
+					...context.response,
 					statusCode: 500
 				}
 			}

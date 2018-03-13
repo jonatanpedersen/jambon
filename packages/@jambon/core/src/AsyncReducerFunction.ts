@@ -1,3 +1,3 @@
-import { HttpState } from "./HttpState";
+import { HttpContext } from "./HttpContext";
 
-export type AsyncReducerFunction = (state : HttpState) => Promise<HttpState>;
+export type AsyncReducerFunction = (context : HttpContext) => Promise<HttpContext>;

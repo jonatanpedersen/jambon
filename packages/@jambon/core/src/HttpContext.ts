@@ -1,8 +1,8 @@
 import { HttpRequest } from "./HttpRequest";
 import { HttpResponse } from "./HttpResponse";
 
-export interface HttpState {
+export interface HttpContext {
 	request: HttpRequest,
 	response?: HttpResponse,
-	context?: any
+	[key: string]: any
 }

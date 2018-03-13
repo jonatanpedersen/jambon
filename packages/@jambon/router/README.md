@@ -9,7 +9,7 @@ npm install @jambon/router
 ### path
 
 ``` javascript
-function path(path: string, ...reducers: (async state => state)[]) : async state => state
+function path(path: string, ...reducers: (async context => context)[]) : async context => context
 ```
 
 Import `path` function:
@@ -27,13 +27,13 @@ const reducer = path('/api', ...reducers});
 Match requests where path is exactly `/api/foos`:
 
 ``` javascript
-const reducer = path('/api/foos$', async (state) => {
+const reducer = path('/api/foos$', async (context) => {
     const foos = await getFoos();
 
     return {
-        ...state,
+        ...context,
         response: {
-            ...state.response,
+            ...context.response,
             body: foos,
             statusCode: 200
         }
@@ -44,14 +44,14 @@ const reducer = path('/api/foos$', async (state) => {
 Using params:
 
 ``` javascript
-const reducer = path('/api/foos/:fooId$',  async (state) => {
-    const {fooId} = state.request.params;
+const reducer = path('/api/foos/:fooId$',  async (context) => {
+    const {fooId} = context.request.params;
     const foo = await findFoo(fooId);
 
     return {
-        ...state,
+        ...context,
         response: {
-            ...state.response,
+            ...context.response,
             body: foo,
             statusCode: foo ? 200 : 404
         }

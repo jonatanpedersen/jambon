@@ -10,7 +10,7 @@ export default function ({db}) {
 		),
 		...foos({db}),
 		...bars(),
-		path('/api/fail', async state => {
+		path('/api/fail', async context => {
 			throw new Error('fail');
 		}),
 		setResponseContentTypeHeaderToApplicationJson,

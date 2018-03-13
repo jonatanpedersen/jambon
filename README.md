@@ -18,13 +18,13 @@ const port = process.env.PORT || 8000;
 
 server.listen(port);
 
-function helloWorld (state) {
+function helloWorld (context) {
 	return {
-		...state,
+		...context,
 		response: {
-			...state.response,
+			...context.response,
 			headers: {
-				...state.response.headers,
+				...context.response.headers,
 				'Content-Type': 'text/html'
 			}
 			body: 'Hello World',

@@ -1,3 +1,3 @@
-import { HttpState } from "./HttpState";
+import { HttpContext } from "./HttpContext";
 
-export type ReducerFunction = (state : HttpState) => HttpState;
+export type ReducerFunction = (context : HttpContext) => HttpContext;
