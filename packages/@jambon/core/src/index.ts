@@ -5,7 +5,7 @@ export { HttpHeaders } from './HttpHeaders';
 export { HttpMethods } from './HttpMethods';
 export { HttpRequest } from './HttpRequest';
 export { HttpResponse } from './HttpResponse';
-export { HttpState } from './HttpState';
+export { HttpContext } from './HttpContext';
 export { HttpStatusCodes } from './HttpStatusCodes';
 export { ReducerFunction } from './ReducerFunction';
 export { RequestListenerFunction } from './RequestListenerFunction';

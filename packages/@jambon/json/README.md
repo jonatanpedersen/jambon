@@ -17,11 +17,11 @@ const port = process.env.PORT || 8000;
 
 server.listen(port);
 
-async function helloWorld (state) {
+async function helloWorld (context) {
     return {
-        ...state,
+        ...context,
         response: {
-            ...state.response,
+            ...context.response,
             body: {
                 id: 1,
                 title: 'hello world'

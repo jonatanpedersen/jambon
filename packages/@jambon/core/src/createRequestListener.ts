@@ -4,7 +4,7 @@ import * as streamTostring from 'stream-to-string';
 import { AsyncReducerFunction } from './AsyncReducerFunction';
 import { IncomingMessage, ServerResponse } from 'http';
 import { RequestListenerFunction } from './RequestListenerFunction';
-import { HttpState } from './HttpState';
+import { HttpContext } from './HttpContext';
 import { all } from './reducers/all';
 
 export function createRequestListener (...reducers: AsyncReducerFunction[]) : RequestListenerFunction {
@@ -21,7 +21,7 @@ export function createRequestListener (...reducers: AsyncReducerFunction[]) : Re
 		const {headers, method, url} = req;
 		const body = await streamTostring(req);
 
-		const initialState : HttpState = {
+		const initialContext : HttpContext = {
 			request: {
 				method,
 				body,
@@ -30,25 +30,25 @@ export function createRequestListener (...reducers: AsyncReducerFunction[]) : Re
 			}
 		};
 
-		const finalState : HttpState = await all(...reducers)(initialState);
+		const finalContext : HttpContext = await all(...reducers)(initialContext);
 
-		if (finalState.response) {
-			if (finalState.response.headers) {
-				for (let header in finalState.response.headers) {
-					res.setHeader(header, finalState.response.headers[header]);
+		if (finalContext.response) {
+			if (finalContext.response.headers) {
+				for (let header in finalContext.response.headers) {
+					res.setHeader(header, finalContext.response.headers[header]);
 				}
 			}
 
-			if (finalState.response.statusMessage) {
-				res.statusMessage = finalState.response.statusMessage;
+			if (finalContext.response.statusMessage) {
+				res.statusMessage = finalContext.response.statusMessage;
 			}
 
-			if (finalState.response.statusCode) {
-				res.statusCode = finalState.response.statusCode;
+			if (finalContext.response.statusCode) {
+				res.statusCode = finalContext.response.statusCode;
 			}
 
-			if (finalState.response.body) {
-				await forEach(finalState.response.body, str => {
+			if (finalContext.response.body) {
+				await forEach(finalContext.response.body, str => {
 					res.write(str);
 				});
 			}

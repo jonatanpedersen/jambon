@@ -7,19 +7,18 @@ import {bars} from '../src/bars';
 describeAsyncReducer({
 	description: 'GET /api/foos',
 	asyncReducer: all(...bars()),
-	initialState: {
+	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
 			url: '/api/bars'
 		}
 	},
-	expectedFinalState: {
+	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars',
-			params: {}
+			url: '/api/bars'
 		},
 		response: {
 			statusCode: 200,
@@ -38,21 +37,18 @@ describeAsyncReducer({
 describeAsyncReducer({
 	description: 'GET /api/foos/1',
 	asyncReducer: all(...bars()),
-	initialState: {
+	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
 			url: '/api/bars/1'
 		}
 	},
-	expectedFinalState: {
+	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/1',
-			params: {
-				id: '1'
-			}
+			url: '/api/bars/1'
 		},
 		response: {
 			statusCode: 200,
@@ -67,21 +63,18 @@ describeAsyncReducer({
 describeAsyncReducer({
 	description: 'GET /api/foos/2',
 	asyncReducer: all(...bars()),
-	initialState: {
+	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
 			url: '/api/bars/2'
 		}
 	},
-	expectedFinalState: {
+	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/2',
-			params: {
-				id: '2'
-			}
+			url: '/api/bars/2'
 		},
 		response: {
 			statusCode: 200,
@@ -96,21 +89,18 @@ describeAsyncReducer({
 describeAsyncReducer({
 	description: 'GET /api/foos/3',
 	asyncReducer: all(...bars()),
-	initialState: {
+	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
 			url: '/api/bars/3'
 		}
 	},
-	expectedFinalState: {
+	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/3',
-			params: {
-				id: '3'
-			}
+			url: '/api/bars/3'
 		},
 		response: {
 			statusCode: 404,

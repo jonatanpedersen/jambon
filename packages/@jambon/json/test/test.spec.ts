@@ -6,7 +6,7 @@ import {jsonParseRequestBody, jsonStringifyResponseBody} from '../';
 describeAsyncReducer({
 	description: 'jsonParseRequestBody should parse request body',
 	asyncReducer: jsonParseRequestBody,
-	initialState: {
+	initialContext: {
 		request: {
 			method: 'POST',
 			headers: {},
@@ -14,7 +14,7 @@ describeAsyncReducer({
 			body: '{"foo": 1, "bar": 2}'
 		}
 	},
-	expectedFinalState: {
+	expectedFinalContext: {
 		request: {
 			method: 'POST',
 			headers: {},

@@ -1,13 +1,13 @@
 import * as url from 'url';
-import { HttpState } from '../HttpState';
+import { HttpContext } from '../HttpContext';
 
-export async function parseRequestQuery (state : HttpState) : Promise<HttpState> {
-	const {query} = url.parse(state.request.url, true);
+export async function parseRequestQuery (context : HttpContext) : Promise<HttpContext> {
+	const {query} = url.parse(context.request.url, true);
 
 	return {
-		...state,
+		...context,
 		request: {
-			...state.request,
+			...context.request,
 			query
 		}
 	};

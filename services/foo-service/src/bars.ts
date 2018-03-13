@@ -1,5 +1,5 @@
 import {path, get} from '@jambon/router';
-import {HttpState} from '@jambon/core';
+import {HttpContext} from '@jambon/core';
 
 const bars = [
 	{
@@ -22,25 +22,25 @@ export default function () {
 		)
 	];
 
-	async function getBars (state : HttpState) : Promise<HttpState> {
+	async function getBars (context : HttpContext) : Promise<HttpContext> {
 		return {
-			...state,
+			...context,
 			response: {
-				...state.response,
+				...context.response,
 				body: bars,
 				statusCode: 200
 			}
 		};
 	}
 
-	async function findBar (state : HttpState) : Promise<HttpState> {
-		const {id} = state.request.params;
+	async function findBar (context : HttpContext) : Promise<HttpContext> {
+		const {id} = context.router.params;
 		const bar = bars.find(bar => bar.id === id);
 
 		return {
-			...state,
+			...context,
 			response: {
-				...state.response,
+				...context.response,
 				body: bar,
 				statusCode: bar ? 200 : 404
 			}

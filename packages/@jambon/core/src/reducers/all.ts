@@ -1,12 +1,12 @@
 import { AsyncReducerFunction } from "../AsyncReducerFunction";
-import { HttpState } from "../HttpState";
+import { HttpContext } from "../HttpContext";
 
 export function all (...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
-	return async function all (state : HttpState) : Promise<HttpState> {
+	return async function all (context : HttpContext) : Promise<HttpContext> {
 		for (const reducer of reducers) {
-			state = await reducer(state);
+			context = await reducer(context);
 		}
 
-		return state;
+		return context;
 	}
 }
