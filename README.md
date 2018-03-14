@@ -26,7 +26,7 @@ function helloWorld (context) {
 			...context.response,
 			headers: {
 				...context.response.headers,
-				'Content-Type': 'text/html'
+				'content-type': 'text/html'
 			}
 			body: 'Hello World',
 			statusCode: 200
