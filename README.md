@@ -36,6 +36,7 @@ function helloWorld (context) {
 ```
 
 ## Licence
+
 The MIT License (MIT)
 
 Copyright (c) 2018 [Jonatan Pedersen](https://www.jonatanpedersen.com/)
