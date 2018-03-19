@@ -19,3 +19,7 @@ export function accept (accept : string, ...reducers : AsyncReducerFunction[]) :
 export function contentType (contentType : string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
 	return header('content-type', contentType, ...reducers);
 }
+
+export function host (host : string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
+	return header('host', host, ...reducers);
+}
