@@ -29,7 +29,13 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 		if (absolute) {
 			pathname = url.parse(request.url).pathname;
 		} else {
-			pathname = (router && router.relativePath || url.parse(request.url).pathname).replace(INITIAL_SLASH, EMPTY_STRING);
+			if (router && router.relativePath !== undefined) {
+				pathname = router.relativePath;
+			} else {
+				pathname = url.parse(request.url).pathname;
+			}
+
+			pathname = pathname.replace(INITIAL_SLASH, EMPTY_STRING);
 		}
 
 		const match = regexp.exec(pathname);
@@ -54,14 +60,10 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 
 			const relativePath = pathname.replace(regexp, EMPTY_STRING);
 
-			if (relativePath !== EMPTY_STRING) {
-				newRouter = {
-					...newRouter,
-					relativePath
-				}
-			} else {
-				delete newRouter.relativePath;
-			}
+			newRouter = {
+				...newRouter,
+				relativePath
+			};
 
 			for (const reducer of reducers) {
 				context = await reducer({...context, router: newRouter });
