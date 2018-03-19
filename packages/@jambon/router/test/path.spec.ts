@@ -46,12 +46,16 @@ describe('path', () => {
 	describeAsyncReducer({
 		only: true,
 		description: 'matching relative paths with params',
-		asyncReducer: path('foos', path(':fooId', path('bars', path(':barId', pass())))),
+		asyncReducer: path('api',
+			path('quizzes',
+				path(':quizIdOrCode', pass())
+			)
+		),
 		initialContext: {
 			request: {
 				method: 'GET',
 				headers: {},
-				url: '/foos/1/bars/2'
+				url: '/api/quizzes/123'
 			}
 		},
 		expectedAsyncReducer: pass()

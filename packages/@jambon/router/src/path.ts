@@ -53,8 +53,6 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 				}
 			};
 
-			console.log(context);
-
 			const relativePath = pathname.replace(regexp, EMPTY_STRING);
 
 			if (relativePath !== EMPTY_STRING) {
@@ -76,6 +74,8 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 
 			context = await all(...reducers)(context);
 		}
+
+		console.log(context);
 
 		return context;
 	}
