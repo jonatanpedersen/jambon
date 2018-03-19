@@ -1,6 +1,6 @@
 {
 	"name": "@jambon/test-helpers",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "",
 	"main": "./lib/index.js",
 	"types": "./lib/index.d.ts",
@@ -21,7 +21,7 @@
 		"mocha": "^4.0.1"
 	},
 	"dependencies": {
-		"@jambon/core": "^2.0.0",
+		"@jambon/core": "^2.0.1",
 		"chai-subset": "1.6.0"
 	},
 	"private": true

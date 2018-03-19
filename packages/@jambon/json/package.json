@@ -1,6 +1,6 @@
 {
   "name": "@jambon/json",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -13,11 +13,11 @@
   "author": "Jonatan Pedersen",
   "license": "MIT",
   "devDependencies": {
-    "@jambon/test-helpers": "^2.0.0",
+    "@jambon/test-helpers": "^2.0.1",
     "mocha": "^4.0.1",
     "typescript": "^2.6.1"
   },
   "dependencies": {
-    "@jambon/core": "^2.0.0"
+    "@jambon/core": "^2.0.1"
   }
 }
