@@ -19,5 +19,8 @@
   },
   "dependencies": {
     "@jambon/core": "^1.0.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
