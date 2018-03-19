@@ -48,9 +48,13 @@ export function createRequestListener (...reducers: AsyncReducerFunction[]) : Re
 			}
 
 			if (finalContext.response.body) {
-				await forEach(finalContext.response.body, str => {
-					res.write(str);
-				});
+				if (finalContext.response.body instanceof Buffer) {
+					res.write(finalContext.response.body);
+				} else  {
+					await forEach(finalContext.response.body, str => {
+						res.write(str);
+					});
+				}
 			}
 		}
 
