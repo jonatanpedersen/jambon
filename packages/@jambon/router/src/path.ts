@@ -42,37 +42,32 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 				return params;
 			}, {});
 
-			context = {
-				...context,
-				router: {
-					...context.router,
-					params: {
-						...(context.router || {}).params,
-						...params
-					}
+			let newRouter = { ...context.router };
+
+			newRouter = {
+				...newRouter || {},
+				params: {
+					...(newRouter || {}).params,
+					...params
 				}
-			};
+			}
 
 			const relativePath = pathname.replace(regexp, EMPTY_STRING);
 
 			if (relativePath !== EMPTY_STRING) {
-				context = {
-					...context,
-					router: {
-						...context.router,
-						relativePath
-					}
-				};
+				newRouter = {
+					...newRouter,
+					relativePath
+				}
 			} else {
-				const newRouter = {...context.router};
 				delete newRouter.relativePath;
-				context = {
-					...context,
-					router: newRouter
-				};
 			}
 
-			context = await all(...reducers)(context);
+			for (const reducer of reducers) {
+				context = await reducer({...context, router: newRouter });
+			}
+
+			context = {...context, router }
 		}
 
 		return context;
