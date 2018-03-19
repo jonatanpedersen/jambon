@@ -46,9 +46,14 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 				...context,
 				router: {
 					...context.router,
-					params
+					params: {
+						...(context.router || {}).params,
+						...params
+					}
 				}
 			};
+
+			console.log(context);
 
 			const relativePath = pathname.replace(regexp, EMPTY_STRING);
 
