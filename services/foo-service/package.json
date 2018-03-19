@@ -1,6 +1,6 @@
 {
   "name": "foo-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "./lib/index.js",
   "private": true,
@@ -14,7 +14,7 @@
   "dependencies": {
     "@jambon/core": "^1.0.1",
     "@jambon/json": "^1.0.1",
-    "@jambon/router": "^1.0.1",
+    "@jambon/router": "^1.0.2",
     "ajv": "^5.4.0",
     "mongodb": "^2.2.33"
   },
