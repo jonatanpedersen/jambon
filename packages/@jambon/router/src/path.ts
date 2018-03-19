@@ -75,8 +75,6 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 			context = await all(...reducers)(context);
 		}
 
-		console.log(context);
-
 		return context;
 	}
 }
