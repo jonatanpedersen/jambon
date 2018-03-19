@@ -22,5 +22,8 @@
   "dependencies": {
     "@jambon/core": "^1.0.0",
     "path-to-regexp": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
