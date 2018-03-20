@@ -6,7 +6,7 @@ import {path} from '../';
 describe('path', () => {
 	describeAsyncReducer({
 		description: 'matching path without params',
-		asyncReducer: path('/foos', pass()),
+		asyncReducer: path('foos', pass()),
 		initialContext: {
 			request: {
 				method: 'GET',
@@ -19,7 +19,7 @@ describe('path', () => {
 
 	describeAsyncReducer({
 		description: 'non matching path without params',
-		asyncReducer: path('/foos', fail()),
+		asyncReducer: path('foos', fail()),
 		initialContext: {
 			request: {
 				method: 'GET',
@@ -32,7 +32,7 @@ describe('path', () => {
 
 	describeAsyncReducer({
 		description: 'matching path with params',
-		asyncReducer: path('/foos/:id', pass()),
+		asyncReducer: path('foos/:id', pass()),
 		initialContext: {
 			request: {
 				method: 'GET',
@@ -44,7 +44,7 @@ describe('path', () => {
 	});
 
 	describeAsyncReducer({
-		description: 'matching relative paths with params',
+		description: 'matching path + path with param + path + exact path with param',
 		asyncReducer: path('bars',
 			path(':barId',
 				path('foos',
@@ -84,7 +84,7 @@ describe('path', () => {
 
 	describeAsyncReducer({
 		description: 'non matching path with params',
-		asyncReducer: path('/foos/:id', fail()),
+		asyncReducer: path('foos/:id', fail()),
 		initialContext: {
 			request: {
 				method: 'GET',
@@ -96,33 +96,7 @@ describe('path', () => {
 	});
 
 	describeAsyncReducer({
-		description: 'matching absolute path',
-		asyncReducer: path('/foos', pass()),
-		initialContext: {
-			request: {
-				method: 'GET',
-				headers: {},
-				url: '/foos'
-			}
-		},
-		expectedAsyncReducer: pass()
-	});
-
-	describeAsyncReducer({
-		description: 'non matching absolute path',
-		asyncReducer: path('/foos', fail()),
-		initialContext: {
-			request: {
-				method: 'GET',
-				headers: {},
-				url: '/bars'
-			}
-		},
-		expectedAsyncReducer: noop()
-	});
-
-	describeAsyncReducer({
-		description: 'matching relative path',
+		description: 'matching path',
 		asyncReducer: path('foos', pass()),
 		initialContext: {
 			request: {
@@ -135,20 +109,7 @@ describe('path', () => {
 	});
 
 	describeAsyncReducer({
-		description: 'matching absolute path and matching relative path',
-		asyncReducer: path('/foos', path('bars', pass())),
-		initialContext: {
-			request: {
-				method: 'GET',
-				headers: {},
-				url: '/foos/bars'
-			}
-		},
-		expectedAsyncReducer: pass()
-	});
-
-	describeAsyncReducer({
-		description: 'matching relative path and matching relative path',
+		description: 'matching path + path',
 		asyncReducer: path('foos', path('bars', pass())),
 		initialContext: {
 			request: {
@@ -161,8 +122,8 @@ describe('path', () => {
 	});
 
 	describeAsyncReducer({
-		description: 'matching absolute path and matching absolute path',
-		asyncReducer: path('/foos', path('/foos/bars', pass())),
+		description: 'matching path with trailing slash + path',
+		asyncReducer: path('foos/', path('bars', pass())),
 		initialContext: {
 			request: {
 				method: 'GET',
@@ -172,4 +133,24 @@ describe('path', () => {
 		},
 		expectedAsyncReducer: pass()
 	});
+
+	describeAsyncReducer({
+		description: 'matching path with trailing slash + path',
+		asyncReducer: path('foos/bars/', path('123', pass())),
+		initialContext: {
+			request: {
+				method: 'GET',
+				headers: {},
+				url: '/foos/bars/123'
+			}
+		},
+		expectedAsyncReducer: pass()
+	});
+
 });
+
+function debug (context) {
+	console.info('context', JSON.stringify(context, null, 4));
+
+	return context;
+}
