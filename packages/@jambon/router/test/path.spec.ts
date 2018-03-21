@@ -135,6 +135,19 @@ describe('path', () => {
 	});
 
 	describeAsyncReducer({
+		description: 'matching exact path',
+		asyncReducer: path('$', pass()),
+		initialContext: {
+			request: {
+				method: 'GET',
+				headers: {},
+				url: '/'
+			}
+		},
+		expectedAsyncReducer: pass()
+	});
+
+	describeAsyncReducer({
 		description: 'matching path with trailing slash + path',
 		asyncReducer: path('foos/bars/', path('123', pass())),
 		initialContext: {

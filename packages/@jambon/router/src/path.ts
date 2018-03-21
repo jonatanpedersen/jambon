@@ -29,8 +29,8 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 	return async function requestUrlPath (context : HttpContext) : Promise<HttpContext> {
 		const { request, response, router } = context;
 		const { url } = request;
-		const parts = parseUrl(request.url);
-		const pathname = parts.pathname.replace(INITIAL_SLASH, EMPTY_STRING);
+		const urlObject = parseUrl(url);
+		const pathname = (urlObject.pathname || '').replace(INITIAL_SLASH, EMPTY_STRING);
 
 		const match = regexp.exec(pathname);
 
@@ -40,7 +40,7 @@ export function path (path : string, ...reducers : AsyncReducerFunction[]) {
 				request: {
 					...context.request,
 					url: formatUrl({
-						...parts,
+						...urlObject,
 						pathname: pathname.replace(regexp, EMPTY_STRING)
 					})
 				},
