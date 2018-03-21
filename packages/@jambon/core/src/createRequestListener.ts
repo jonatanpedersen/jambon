@@ -6,6 +6,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { RequestListenerFunction } from './RequestListenerFunction';
 import { HttpContext } from './HttpContext';
 import { all } from './reducers/all';
+import { Stream } from 'stream';
 
 export function createRequestListener (...reducers: AsyncReducerFunction[]) : RequestListenerFunction {
 	return requestListener;
@@ -48,7 +49,11 @@ export function createRequestListener (...reducers: AsyncReducerFunction[]) : Re
 			}
 
 			if (finalContext.response.body) {
-				if (finalContext.response.body instanceof Buffer) {
+				if (finalContext.response.body instanceof Stream) {
+					finalContext.response.body.pipe(res);
+				} else if (typeof finalContext.response.body === 'string') {
+					res.write(finalContext.response.body);
+				} else if (finalContext.response.body instanceof Buffer) {
 					res.write(finalContext.response.body);
 				} else  {
 					await forEach(finalContext.response.body, str => {
