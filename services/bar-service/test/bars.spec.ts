@@ -5,20 +5,20 @@ import {expect} from 'chai';
 import {bars} from '../src/bars';
 
 describeAsyncReducer({
-	description: 'GET /api/foos',
+	description: 'GET /bars',
 	asyncReducer: all(...bars()),
 	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars'
+			url: 'bars'
 		}
 	},
 	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars'
+			url: 'bars'
 		},
 		response: {
 			statusCode: 200,
@@ -35,20 +35,20 @@ describeAsyncReducer({
 });
 
 describeAsyncReducer({
-	description: 'GET /api/foos/1',
+	description: 'GET /foos/1',
 	asyncReducer: all(...bars()),
 	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/1'
+			url: '/bars/1'
 		}
 	},
 	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/1'
+			url: '/bars/1'
 		},
 		response: {
 			statusCode: 200,
@@ -61,20 +61,20 @@ describeAsyncReducer({
 });
 
 describeAsyncReducer({
-	description: 'GET /api/foos/2',
+	description: 'GET /foos/2',
 	asyncReducer: all(...bars()),
 	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/2'
+			url: '/bars/2'
 		}
 	},
 	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/2'
+			url: '/bars/2'
 		},
 		response: {
 			statusCode: 200,
@@ -87,20 +87,20 @@ describeAsyncReducer({
 });
 
 describeAsyncReducer({
-	description: 'GET /api/foos/3',
+	description: 'GET /foos/3',
 	asyncReducer: all(...bars()),
 	initialContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/3'
+			url: '/bars/3'
 		}
 	},
 	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: '/api/bars/3'
+			url: '/bars/3'
 		},
 		response: {
 			statusCode: 404,

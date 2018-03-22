@@ -5,7 +5,7 @@ const { jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson
 module.exports = { api };
 
 function api() {
-	return path('/api',
+	return path('api',
 		...bars(),
 		setResponseContentTypeHeaderToApplicationJson,
 		jsonStringifyResponseBody

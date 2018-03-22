@@ -16,10 +16,10 @@ function bars () {
 	];
 
 	return [
-		path('/api/bars$',
+		path('bars$',
 			get(getBars)
 		),
-		path('/api/bars/:id',
+		path('bars/:id',
 			get(findBar)
 		)
 	];

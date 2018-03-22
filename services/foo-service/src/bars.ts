@@ -14,10 +14,10 @@ const bars = [
 
 export default function () {
 	return [
-		path('/api/bars$',
+		path('bars$',
 			get(getBars)
 		),
-		path('/api/bars/:id',
+		path('bars/:id',
 			get(findBar)
 		)
 	];

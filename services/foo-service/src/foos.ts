@@ -6,8 +6,8 @@ export default function ({db}) {
 	const foos = db.collection('foos');
 
 	return [
-		path('/api/foos$', post(createFoo), get(getFoos)),
-		path('/api/foos/:fooId$', get(findFoo))
+		path('foos$', post(createFoo), get(getFoos)),
+		path('foos/:fooId$', get(findFoo))
 	];
 
 	async function createFoo (context : HttpContext) : Promise<HttpContext> {
