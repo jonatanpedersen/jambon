@@ -11,14 +11,14 @@ describeAsyncReducer({
 		request: {
 			method: 'GET',
 			headers: {},
-			url: 'bars'
+			url: '/bars'
 		}
 	},
 	expectedFinalContext: {
 		request: {
 			method: 'GET',
 			headers: {},
-			url: 'bars'
+			url: '/bars'
 		},
 		response: {
 			statusCode: 200,
