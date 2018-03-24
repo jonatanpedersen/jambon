@@ -1,0 +1,30 @@
+{
+  "name": "@jambon/pug",
+  "version": "1.1.0",
+  "description": "",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build-watch": "tsc --watch",
+    "build-and-test": "npm run build && npm test",
+    "test": "mocha --harmony_async_iteration"
+  },
+  "author": "Jonatan Pedersen",
+  "license": "MIT",
+  "devDependencies": {
+    "@jambon/test-helpers": "^1.1.0",
+    "mocha": "^4.0.1",
+    "pug": "*",
+    "typescript": "^2.6.1"
+  },
+  "peerDependencies": {
+    "pug": "*"
+  },
+  "dependencies": {
+    "@jambon/core": "^1.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
