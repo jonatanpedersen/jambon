@@ -1,8 +1,24 @@
 # @jambon/static
 
+## Install
+
+``` bash
+npm i @jambon/static
+```
+
+## Usage
+
+public/index.html:
+
+``` html
+<html><body>Hello World</body></html>
+```
+
+index.js:
+
 ``` javascript
 import { createRequestListener } from '@jambon/core';
-import { dir } from '@jambon/static';
+import { pugFile } from '@jambon/pug';
 import http from 'http';
 
 const server = http.createServer(
@@ -14,6 +30,19 @@ const server = http.createServer(
 const port = process.env.PORT || 8000;
 
 server.listen(port);
+```
+
+Test:
+
+``` bash
+node .
+$ curl http://localhost:8000/ -s -i
+HTTP/2 200
+...
+content-type: text/html
+...
+
+<html><body>Hello World</body></html>
 ```
 
 ## Licence

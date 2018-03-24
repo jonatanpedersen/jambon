@@ -1,22 +1,32 @@
 import { AsyncReducerFunction, HttpContext } from '@jambon/core';
-import { join, parse as parsePath } from 'path';
+import { join } from 'path';
 import { parse as parseUrl } from 'url';
-import { createReadStream, readFileSync } from 'fs';
+import { readFileSync } from 'fs';
 
 export function dir (path : string) : AsyncReducerFunction {
 	return async function dir (context : HttpContext) : Promise<HttpContext> {
-		let { pathname } = parseUrl(context.request.url);
+		const { pathname } = parseUrl(context.request.url);
 
-		// Remove startling slash
-		pathname = pathname.replace(/^\//, '');
+		const base = pathname ? join(path, pathname) : path;
 
-		// Add default document
-		if (pathname.endsWith('/')) {
-			pathname += 'index.html';
+		const files = [
+			base,
+			join(base, 'index.html')
+		];
+
+		let body;
+
+		for (const file of files) {
+			try {
+				body = readFileSync(file)
+				break;
+			} catch (err) {
+			}
+		};
+
+		if (!body) {
+			return context;
 		}
-
-		const file = join(pathname);
-		const body = readFileSync(file);
 
 		return {
 			...context,
