@@ -9,6 +9,10 @@ function updateObj (obj : object, update : object) : any {
 		return update;
 	}
 
+	if (Object.prototype.toString.call(update) !== '[object Object]') {
+		return update;
+	}
+
 	for (const prop in update) {
 		const isObject = typeof update[prop] === 'object';
 		const isNotNull = update[prop] !== null;
