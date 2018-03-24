@@ -1,6 +1,6 @@
 {
   "name": "@jambon/static",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -13,12 +13,12 @@
   "author": "Jonatan Pedersen",
   "license": "MIT",
   "devDependencies": {
-    "@jambon/test-helpers": "^1.2.0",
+    "@jambon/test-helpers": "^1.2.3",
     "mocha": "^4.0.1",
     "typescript": "^2.6.1"
   },
   "dependencies": {
-    "@jambon/core": "^1.2.0"
+    "@jambon/core": "^1.2.3"
   },
   "publishConfig": {
     "access": "public"
