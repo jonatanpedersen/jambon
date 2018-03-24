@@ -12,7 +12,7 @@ import { createRequestListener } from 'jambon';
 import http from 'http';
 
 const server = http.createServer(
-	createRequestListener(helloWorld)
+    createRequestListener(helloWorld)
 );
 
 const port = process.env.PORT || 8080;
@@ -20,18 +20,18 @@ const port = process.env.PORT || 8080;
 server.listen(port);
 
 function helloWorld (context) {
-	return {
-		...context,
-		response: {
-			...context.response,
-			headers: {
-				...context.response.headers,
-				'content-type': 'text/html'
-			}
-			body: 'Hello World',
-			statusCode: 200
-		}
-	};
+    return {
+        ...context,
+        response: {
+            ...context.response,
+            headers: {
+                ...context.response.headers,
+                'content-type': 'text/html'
+            }
+            body: 'Hello World',
+            statusCode: 200
+        }
+    };
 }
 ```
 
