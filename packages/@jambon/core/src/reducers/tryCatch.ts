@@ -27,7 +27,7 @@ export async function defaultErrorHandler (error : Error, context : HttpContext)
 	let statusCode = HttpStatusCodes.INTERNAL_SERVER_ERROR;
 
 	if (error instanceof HttpError) {
-		const statusCode = error.statusCode;
+		statusCode = error.statusCode;
 	}
 
 	return updateContext(context, {
