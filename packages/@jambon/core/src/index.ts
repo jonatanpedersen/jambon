@@ -1,12 +1,15 @@
-export { AsyncReducerFunction} from './AsyncReducerFunction';
-export { AsyncReducerFunctionFactory} from './AsyncReducerFunctionFactory';
+export { AsyncMatcherFunction } from './AsyncMatcherFunction';
+export { AsyncReducerFunction } from './AsyncReducerFunction';
+export { AsyncReducerFunctionFactory } from './AsyncReducerFunctionFactory';
 export { createRequestListener } from './createRequestListener';
+export { HttpContext } from './HttpContext';
 export { HttpHeaders } from './HttpHeaders';
 export { HttpMethods } from './HttpMethods';
 export { HttpRequest } from './HttpRequest';
 export { HttpResponse } from './HttpResponse';
-export { HttpContext } from './HttpContext';
 export { HttpStatusCodes } from './HttpStatusCodes';
 export { ReducerFunction } from './ReducerFunction';
 export { RequestListenerFunction } from './RequestListenerFunction';
+export { updateContext } from './updateContext';
 export * from './reducers/index';
+export * from './HttpErrors';
