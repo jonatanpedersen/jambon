@@ -1,9 +1,6 @@
 import { parse as parseUrl, format as formatUrl } from 'url';
 import * as pathToRegexp from 'path-to-regexp';
 import { all, AsyncReducerFunction, HttpContext } from '@jambon/core';
-import { createDebug } from './debug';
-
-const debug = createDebug('jambon:path');
 
 const EMPTY_STRING = '';
 const INITIAL_SLASH = /^\//;

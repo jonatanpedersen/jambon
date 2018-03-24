@@ -1,14 +1,8 @@
-import {all, AsyncReducerFunction, HttpContext} from '@jambon/core';
+import { match, AsyncReducerFunction, HttpContext } from '@jambon/core';
 
 export function header (name : string, value : string, ...reducers : AsyncReducerFunction[]) : AsyncReducerFunction {
 	return async function header (context : HttpContext) : Promise<HttpContext> {
-		const requestHeader = context.request.headers[name];
-
-		if (requestHeader !== value) {
-			return context;
-		}
-
-		return all(...reducers)(context);
+		return match(async context => context.request.headers[name] === value, ...reducers)(context);
 	}
 }
 
