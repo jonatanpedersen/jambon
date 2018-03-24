@@ -1,40 +1,32 @@
-import {AsyncReducerFunction, HttpContext} from '@jambon/core';
+import { AsyncReducerFunction, HttpContext, updateContext } from '@jambon/core';
 
 export const JSON_MIME_TYPE = 'application/json';
+export const CONTENT_TYPE_RESPONSE_HEADER = 'application/json';
 
 export async function jsonParseRequestBody (context : HttpContext) : Promise<HttpContext> {
 	const body = JSON.parse(context.request.body);
 
-	return {
-		...context,
+	return updateContext(context, {
 		request: {
-			...context.request,
 			body
 		}
-	};
+	});
 }
 
 export async function setResponseContentTypeHeaderToApplicationJson (context : HttpContext) : Promise<HttpContext> {
-	return {
-		...context,
+	return updateContext(context, {
 		response: {
-			...context.response,
-			headers: {
-				...context.response.headers,
-				'content-type': JSON_MIME_TYPE
-			}
+			[CONTENT_TYPE_RESPONSE_HEADER]: JSON_MIME_TYPE
 		}
-	};
+	});
 }
 
 export async function jsonStringifyResponseBody (context : HttpContext) : Promise<HttpContext> {
-	return {
-		...context,
+	return updateContext(context, {
 		response: {
-			...context.response,
 			body: json(context.response.body)
 		}
-	};
+	});
 }
 
 async function* json (obj: any) {

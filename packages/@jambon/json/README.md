@@ -1,12 +1,24 @@
 # @jambon/json
 
+## Install
+
+``` bash
+npm i @jambon/json
+```
+
+## Usage
+
+index.js:
+
 ``` javascript
-import { createRequestListener } from '@jambon/core';
-import { jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson } from '@jambon/json';
+import { createRequestListener, updateContext } from '@jambon/core';
+import { post } from '@jambon/router';
+import { jsonParseRequestBody, jsonStringifyResponseBody, setResponseContentTypeHeaderToApplicationJson } from '@jambon/json';
 import http from 'http';
 
 const server = http.createServer(
     createRequestListener(
+        post(jsonParseRequestBody),
         helloWorld,
         setResponseContentTypeHeaderToApplicationJson,
         jsonStringifyResponseBody
@@ -18,18 +30,29 @@ const port = process.env.PORT || 8000;
 server.listen(port);
 
 async function helloWorld (context) {
-    return {
-        ...context,
+    return updateContext(context,
         response: {
-            ...context.response,
             body: {
                 id: 1,
                 title: 'hello world'
             },
             statusCode: 200
         }
-    };
+    });
 }
+```
+
+Test:
+
+``` bash
+node .
+$ curl http://localhost:8000/ -i -s
+HTTP/2 200
+...
+content-type: application/json
+...
+
+{id: 1,title: 'hello world'}
 ```
 
 ## Licence
