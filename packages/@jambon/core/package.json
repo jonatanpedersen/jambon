@@ -7,14 +7,14 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
-    "test": "mocha --harmony_async_iteration"
+    "test": "mocha"
   },
   "private": false,
   "author": "Jonatan Pedersen",
   "license": "MIT",
   "devDependencies": {
-    "mocha": "^4.0.1",
-    "typescript": "^2.6.1"
+    "mocha": "5.2.0",
+    "typescript": "2.9.2"
   },
   "dependencies": {
     "stream-to-string": "^1.1.0"

@@ -8,7 +8,7 @@
     "build": "tsc",
     "build-and-test": "npm run build && npm test",
     "build-watch": "tsc --watch",
-    "test": "mocha --harmony_async_iteration"
+    "test": "mocha"
   },
   "private": false,
   "author": "Jonatan Pedersen",
@@ -16,8 +16,8 @@
   "devDependencies": {
     "@jambon/test-helpers": "^1.2.3",
     "deep-diff": "^0.3.8",
-    "mocha": "^4.0.1",
-    "typescript": "^2.6.1"
+    "mocha": "5.2.0",
+    "typescript": "2.9.2"
   },
   "dependencies": {
     "@jambon/core": "^1.2.3",

@@ -7,24 +7,23 @@
   "scripts": {
     "build": "tsc",
     "build-watch": "tsc --watch",
-    "start": "node --harmony_async_iteration .",
-    "start-watch": "nodemon --harmony_async_iteration",
-    "test": "mocha --harmony_async_iteration"
+    "start": "node",
+    "start-watch": "nodemon",
+    "test": "mocha"
   },
   "dependencies": {
     "@jambon/core": "^1.2.3",
     "@jambon/json": "^1.2.3",
     "@jambon/router": "^1.2.3",
-    "ajv": "^5.4.0",
+    "ajv": "^6.5.2",
     "mongodb": "^2.2.33"
   },
   "author": "Jonatan Pedersen",
   "license": "ISC",
   "devDependencies": {
     "@jambon/test-helpers": "^1.2.3",
-    "loadtest": "^2.3.0",
-    "mocha": "^4.0.1",
-    "nodemon": "^1.12.1",
-    "typescript": "^2.6.1"
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "typescript": "^2.9.2"
   }
 }

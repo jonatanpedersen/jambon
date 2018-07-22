@@ -5,9 +5,9 @@
   "main": "./src/index.js",
   "private": true,
   "scripts": {
-    "start": "node --harmony_async_iteration .",
-    "start-watch": "nodemon --harmony_async_iteration",
-    "test": "mocha --harmony_async_iteration"
+    "start": "node .",
+    "start-watch": "nodemon",
+    "test": "mocha"
   },
   "dependencies": {
     "@jambon/core": "^1.2.3",
@@ -18,7 +18,7 @@
   "license": "ISC",
   "devDependencies": {
     "@jambon/test-helpers": "^1.2.3",
-    "mocha": "^4.0.1",
-    "nodemon": "^1.12.1"
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3"
   }
 }
